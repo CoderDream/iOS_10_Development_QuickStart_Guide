@@ -1,0 +1,10 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target 'Instagram' do
+    pod 'LeanCloud' # , '~> 13.0.0'
+    #pod 'AVOSCloud','3.3.5'                 # LeanCloud 基础模块
+    #pod 'AVOSCloudIM','3.3.5'               # IM 模块
+    #pod 'AVOSCloudCrashReporting','3.3.5'   # 崩溃报告模板
+
+end
