@@ -12,6 +12,9 @@
 		3F70D7DB21B235A9001DD234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F70D7D921B235A9001DD234 /* Main.storyboard */; };
 		3F70D7DD21B235AA001DD234 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F70D7DC21B235AA001DD234 /* Assets.xcassets */; };
 		3F70D7E021B235AA001DD234 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F70D7DE21B235AA001DD234 /* LaunchScreen.storyboard */; };
+		3F773BFD21B4241B0032FBC8 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F773BFC21B4241B0032FBC8 /* SignInVC.swift */; };
+		3F773BFF21B424360032FBC8 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F773BFE21B424360032FBC8 /* SignUpVC.swift */; };
+		3F773C0121B424520032FBC8 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F773C0021B424520032FBC8 /* ResetPasswordVC.swift */; };
 		8D6517A97C5E1484359D16EE /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8049E89D14BE42635CD95E41 /* Pods_Instagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +28,9 @@
 		3F70D7DC21B235AA001DD234 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F70D7DF21B235AA001DD234 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F70D7E121B235AA001DD234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F773BFC21B4241B0032FBC8 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		3F773BFE21B424360032FBC8 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		3F773C0021B424520032FBC8 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		8049E89D14BE42635CD95E41 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,6 +71,9 @@
 				3F70D7D721B235A9001DD234 /* ViewController.swift */,
 				3F70D7D921B235A9001DD234 /* Main.storyboard */,
 				3F70D7E121B235AA001DD234 /* Info.plist */,
+				3F773BFC21B4241B0032FBC8 /* SignInVC.swift */,
+				3F773BFE21B424360032FBC8 /* SignUpVC.swift */,
+				3F773C0021B424520032FBC8 /* ResetPasswordVC.swift */,
 			);
 			path = Instagram;
 			sourceTree = "<group>";
@@ -219,8 +228,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F773BFF21B424360032FBC8 /* SignUpVC.swift in Sources */,
+				3F773C0121B424520032FBC8 /* ResetPasswordVC.swift in Sources */,
 				3F70D7D821B235A9001DD234 /* ViewController.swift in Sources */,
 				3F70D7D621B235A9001DD234 /* AppDelegate.swift in Sources */,
+				3F773BFD21B4241B0032FBC8 /* SignInVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
