@@ -41,7 +41,7 @@
 
 - 最终项目文件结构
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02010.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02009.png)
 
 
 ## 2.2 搭建用户的登陆界面
@@ -49,53 +49,23 @@
 
 ### 新增2个文本输入框和3个按钮
 
-- 内容如下：
+- 新增输入框：
 
-```
-platform :ios, '8.0' # '12.1'
-use_frameworks!
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02010.png)
 
-target 'Instagram' do
-   pod 'LeanCloud'
-end
-```
+- 新增按钮
 
-- 在终端中执行安装命令
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02011.png)
 
-```
-pod install
-```
+## 2.3 为SignInVC类的视图创建Outlet和Action关联
 
-- 安装结果
-
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01004.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02012.png)
 
 
-### 修改源代码
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02013.png)
 
-- 修改 AppDelegate.swfit 的    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool 方法
 
-```swift
-func application(_ application: UIApplication, didFinishLaunchingWithOptions 
-	launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    LeanCloud.initialize(applicationID: "Your App ID", applicationKey: "Your App Key")
-    
-    /* Create an object. */
-    let object = LCObject(className: "Post")
-    object.set("words", value: "Hello World!")
-    /* Save the object to LeanCloud application. */
-    object.save { result in
-        switch result {
-        case .success: print("Success")
-        case .failure: print("Failure")
-        }
-    }
-    
-    return true
-}
-```
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02014.png)
 
-- 运行结果
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01005.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02015.png)
