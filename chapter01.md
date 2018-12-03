@@ -25,13 +25,25 @@
 
 ## 新建 Instagram 项目 
 
+- 新建项目
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01003.png)
+
+- 项目信息
+ 
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01003.png)
+
+- 项目文件结构
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01003.png)
+
 
 ## 将LeanCloud SDK 集成到 iOS 项目中
 
 
 ### 新增 Podfile
 
-内容如下：
+- 内容如下：
 
 ```
 platform :ios, '8.0' # '12.1'
@@ -42,13 +54,13 @@ target 'Instagram' do
 end
 ```
 
-安装
+- 在终端中执行安装命令
 
 ```
 pod install
 ```
 
-安装结果
+- 安装结果
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01004.png)
 
