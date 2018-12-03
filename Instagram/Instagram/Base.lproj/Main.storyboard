@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="ov0-24-bA7">
             <objects>
-                <viewController id="r3f-El-Ghg" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fSd-s3-BzW" customClass="SignInVC" customModule="Instagram" customModuleProvider="target">
+                <viewController id="r3f-El-Ghg" customClass="SignInViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fSd-s3-BzW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -40,7 +40,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="登录"/>
                                 <connections>
-                                    <action selector="signInBtnClicked:" destination="fSd-s3-BzW" eventType="touchUpInside" id="RSd-Ef-PWn"/>
+                                    <action selector="signInBtnClicked:" destination="r3f-El-Ghg" eventType="touchUpInside" id="yET-6E-eDw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GK1-Qm-4Oh">
@@ -50,45 +50,139 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="注册"/>
                                 <connections>
-                                    <segue destination="fdd-JB-L7p" kind="presentation" id="K4z-aN-4z6"/>
+                                    <segue destination="fdd-JB-L7p" kind="presentation" id="Mjw-vv-g6d"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGF-pT-88d">
-                                <rect key="frame" x="20" y="309" width="152" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGv-GY-PgT">
+                                <rect key="frame" x="16" y="329" width="138" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="忘记密码？"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="EVX-0U-yLc"/>
-                        <connections>
-                            <outlet property="forgotBtn" destination="mGF-pT-88d" id="s6b-Dc-HIN"/>
-                            <outlet property="passwordTxt" destination="rEz-Tt-Q0j" id="hV0-LJ-aBw"/>
-                            <outlet property="signInBtn" destination="Hz0-f2-SP3" id="JfF-Zn-Bhs"/>
-                            <outlet property="signUpBtn" destination="GK1-Qm-4Oh" id="yTW-hu-8yo"/>
-                            <outlet property="usernameTxt" destination="zG0-oo-g9f" id="yOO-iD-dKk"/>
-                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="forgotBtn" destination="AGv-GY-PgT" id="R94-Ij-xwa"/>
+                        <outlet property="passwordTxt" destination="rEz-Tt-Q0j" id="3g7-BV-MGf"/>
+                        <outlet property="signInBtn" destination="Hz0-f2-SP3" id="gOI-gm-kOK"/>
+                        <outlet property="signUpBtn" destination="GK1-Qm-4Oh" id="TXb-GX-34l"/>
+                        <outlet property="usernameTxt" destination="zG0-oo-g9f" id="Wxw-O4-Hr6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btF-rP-cz4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="155.07246376811597" y="105.97826086956522"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="KNP-zF-0SB">
             <objects>
-                <viewController id="fdd-JB-L7p" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ohb-Eb-ZDM" customClass="SignUpVC" customModule="Instagram" customModuleProvider="target">
+                <viewController id="fdd-JB-L7p" customClass="SignUpViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ohb-Eb-ZDM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3bg-bE-PNV">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pp" translatesAutoresizingMaskIntoConstraints="NO" id="1za-gM-xqj">
+                                        <rect key="frame" x="147" y="28" width="120" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fAa-dj-7G8">
+                                        <rect key="frame" x="8" y="293" width="398" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="重复密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="UJ0-eB-nu1">
+                                        <rect key="frame" x="8" y="345" width="398" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="电子邮件" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fwh-ea-ZJP">
+                                        <rect key="frame" x="8" y="393" width="398" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="简介" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Sab-yg-LKV">
+                                        <rect key="frame" x="8" y="522" width="398" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="jGB-Vq-WyG">
+                                        <rect key="frame" x="8" y="470" width="398" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="网站" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="vEs-Zl-a6w">
+                                        <rect key="frame" x="8" y="569" width="398" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuN-Cp-W2f">
+                                        <rect key="frame" x="8" y="622" width="120" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="注册"/>
+                                        <connections>
+                                            <action selector="signUpBtnClicked:" destination="fdd-JB-L7p" eventType="touchUpInside" id="PLC-AK-oI1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5A-XN-zbN">
+                                        <rect key="frame" x="286" y="622" width="120" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="取消"/>
+                                        <connections>
+                                            <action selector="cancelBtnClicked:" destination="fdd-JB-L7p" eventType="touchUpInside" id="7Bk-Mu-aDO"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="用户名" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cYu-FK-lh9">
+                                        <rect key="frame" x="8" y="241" width="398" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="CKW-d3-jvN"/>
                     </view>
+                    <connections>
+                        <outlet property="avaImg" destination="1za-gM-xqj" id="ZIc-2f-cCS"/>
+                        <outlet property="bioTxt" destination="Sab-yg-LKV" id="sPa-wm-JMU"/>
+                        <outlet property="cancelBtn" destination="K5A-XN-zbN" id="bcQ-gk-sDD"/>
+                        <outlet property="emailTxt" destination="fwh-ea-ZJP" id="jZt-EM-Vti"/>
+                        <outlet property="fullnameTxt" destination="jGB-Vq-WyG" id="PO9-Gb-NI2"/>
+                        <outlet property="passwordTxt" destination="fAa-dj-7G8" id="RmG-CF-0Eh"/>
+                        <outlet property="repeatPasswordTxt" destination="UJ0-eB-nu1" id="CbG-iK-xhX"/>
+                        <outlet property="scrollView" destination="3bg-bE-PNV" id="BAo-Dw-iSq"/>
+                        <outlet property="signUpBtn" destination="FuN-Cp-W2f" id="nbm-40-9D1"/>
+                        <outlet property="usernameTxt" destination="cYu-FK-lh9" id="DkP-Br-4b3"/>
+                        <outlet property="webTxt" destination="vEs-Zl-a6w" id="fhk-Wr-QPd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="na8-PY-yiJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="795" y="108"/>
+            <point key="canvasLocation" x="794.20289855072474" y="107.60869565217392"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="rF2-LI-QlO">
@@ -106,4 +200,7 @@
             <point key="canvasLocation" x="1432" y="107"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pp" width="96" height="96"/>
+    </resources>
 </document>
