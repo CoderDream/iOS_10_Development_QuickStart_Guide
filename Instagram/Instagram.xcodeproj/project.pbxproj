@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F3A4B4621B514A400C36F2C /* console.log in Resources */ = {isa = PBXBuildFile; fileRef = 3F3A4B4521B514A400C36F2C /* console.log */; };
 		3F70D7D621B235A9001DD234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F70D7D521B235A9001DD234 /* AppDelegate.swift */; };
 		3F70D7D821B235A9001DD234 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F70D7D721B235A9001DD234 /* ViewController.swift */; };
 		3F70D7DB21B235A9001DD234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F70D7D921B235A9001DD234 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		0E8FC953043D13D4BF457717 /* Pods-Instagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.release.xcconfig"; sourceTree = "<group>"; };
 		2DF8E8DE34D80A582DB6AC89 /* Pods-Instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.debug.xcconfig"; sourceTree = "<group>"; };
+		3F3A4B4521B514A400C36F2C /* console.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = console.log; sourceTree = "<group>"; };
 		3F70D7D221B235A9001DD234 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F70D7D521B235A9001DD234 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F70D7D721B235A9001DD234 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 		3F70D7C921B235A9001DD234 = {
 			isa = PBXGroup;
 			children = (
+				3F3A4B4521B514A400C36F2C /* console.log */,
 				3F70D7D421B235A9001DD234 /* Instagram */,
 				3F70D7D321B235A9001DD234 /* Products */,
 				4645717962D35EE7A838C8D1 /* Pods */,
@@ -116,7 +119,7 @@
 				3F70D7CE21B235A9001DD234 /* Sources */,
 				3F70D7CF21B235A9001DD234 /* Frameworks */,
 				3F70D7D021B235A9001DD234 /* Resources */,
-				4DF719293518E27983394169 /* [CP] Embed Pods Frameworks */,
+				5EA4C643378C7F91A5131221 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -168,6 +171,7 @@
 			files = (
 				3F70D7E021B235AA001DD234 /* LaunchScreen.storyboard in Resources */,
 				3F70D7DD21B235AA001DD234 /* Assets.xcassets in Resources */,
+				3F3A4B4621B514A400C36F2C /* console.log in Resources */,
 				3F70D7DB21B235A9001DD234 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,7 +179,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4DF719293518E27983394169 /* [CP] Embed Pods Frameworks */ = {
+		5EA4C643378C7F91A5131221 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

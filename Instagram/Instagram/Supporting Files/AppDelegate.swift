@@ -17,8 +17,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        LeanCloud.initialize(applicationID: "RMIdHYXjwJjQVMzm60Otf2oe-9Nh9j0Va", applicationKey: "VIVz2iX96UUnoy3TLANmeqN3")
+
+        // version iOS 8.0
+//        LeanCloud.initialize(applicationID: "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", applicationKey: "3wnkDhfhLxv8QQQaXT4N9lWT")
+//        /* Create an object. */
+//        let object = LCObject(className: "Post")
+//        object.set("words", value: "Hello World!")
+//        /* Save the object to LeanCloud application. */
+//        object.save { result in
+//            switch result {
+//            case .success: print("Success")
+//            case .failure: print("Failure")
+//            }
+//        }
         
+        
+        // version iOS 12.1
+        LCApplication.default.set(
+            id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
+            key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
+        )
+        let post = LCObject(className: "Post")
+        
+        do {
+            try post.set("words", value: "Hello World!")
+            
+            _ = post.save { result in
+                switch result {
+                case .success: print("Success")
+                case .failure(let error):
+                    print("Failure")
+                    print("出错了：\(error)")
+                    break
+                }
+            }
+        } catch {
+            
+        }
         
         // AVAnalytics.trackAppOpened(launchOptions: launchOptions)
         
@@ -70,16 +105,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         /* Create an object. */
-        let object = LCObject(className: "Post")
-        object.set("words", value: "Hello World!")
-        /* Save the object to LeanCloud application. */
-        object.save { result in
-            switch result {
-            case .success: print("Success")
-            case .failure: print("Failure")
-            }
-        }
+//        let object = LCObject(className: "Post")
+//        object.set("words", value: "Hello World!")
+//        /* Save the object to LeanCloud application. */
+//        object.save { result in
+//            switch result {
+//            case .success: print("Success")
+//            case .failure: print("Failure")
+//            }
+//        }
         
+
         return true
     }
 

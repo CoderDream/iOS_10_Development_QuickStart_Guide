@@ -1,0 +1,20 @@
+Success
+2018-12-03 15:32:37.904852+0800 Instagram[39609:3950013] TIC Read Status [1:0x281e66b80]: 1:57
+2018-12-03 15:32:37.905941+0800 Instagram[39609:3950013] TIC Read Status [1:0x281e66b80]: 1:57
+2018-12-03 15:32:37.906031+0800 Instagram[39609:3950013] TIC Read Status [1:0x281e66b80]: 1:57
+2018-12-03 15:32:37.909131+0800 Instagram[39609:3950013] [BoringSSL] nw_protocol_boringssl_get_output_frames(1301) [C1.1:2][0x10153ccb0] get output frames failed, state 8196
+2018-12-03 15:32:37.909584+0800 Instagram[39609:3950013] [BoringSSL] nw_protocol_boringssl_get_output_frames(1301) [C1.1:2][0x10153ccb0] get output frames failed, state 8196
+2018-12-03 15:32:37.910918+0800 Instagram[39609:3950013] TIC Read Status [1:0x0]: 1:57
+2018-12-03 15:32:37.910998+0800 Instagram[39609:3950013] TIC Read Status [1:0x0]: 1:57
+2018-12-03 15:32:37.911052+0800 Instagram[39609:3950013] TIC Read Status [1:0x0]: 1:57
+2018-12-03 15:32:37.911278+0800 Instagram[39609:3950013] TIC Read Status [1:0x0]: 1:57
+2018-12-03 15:33:46.096794+0800 Instagram[39609:3950070] TIC Read Status [2:0x281e67000]: 1:57
+2018-12-03 15:33:46.096945+0800 Instagram[39609:3950070] TIC Read Status [2:0x281e67000]: 1:57
+2018-12-03 15:33:46.097000+0800 Instagram[39609:3950070] TIC Read Status [2:0x281e67000]: 1:57
+2018-12-03 15:33:46.100994+0800 Instagram[39609:3950070] [BoringSSL] nw_protocol_boringssl_get_output_frames(1301) [C2.1:2][0x1016253e0] get output frames failed, state 8196
+2018-12-03 15:33:46.101396+0800 Instagram[39609:3950070] [BoringSSL] nw_protocol_boringssl_get_output_frames(1301) [C2.1:2][0x1016253e0] get output frames failed, state 8196
+2018-12-03 15:33:46.103051+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
+2018-12-03 15:33:46.103140+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
+2018-12-03 15:33:46.103248+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
+2018-12-03 15:33:46.103299+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
+2018-12-03 15:36:00.005313+0800 Instagram[39609:3949895] Could not load IOSurface for time string. Rendering locally instead.
