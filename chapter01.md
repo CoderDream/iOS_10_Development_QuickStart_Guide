@@ -1,4 +1,4 @@
-# 第1章　创建项目并集成　LeanCloud SDK #
+# 第1章　创建项目并集成LeanCloud SDK #
 
 ## 注册LeanCloud并创建项目 ##
 
@@ -12,14 +12,15 @@
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01001.png)
 
+- 输入新应用名称
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01006.png)
 
-- 创建成功
+- 创建成功后显示应用列表
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01002.png)
 
-- 查看Key
+- 查看应用Key
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01003.png)
 
@@ -73,7 +74,7 @@ pod install
 func application(_ application: UIApplication, didFinishLaunchingWithOptions 
 	launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    LeanCloud.initialize(applicationID: "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", applicationKey: "3wnkDhfhLxv8QQQaXT4N9lWT")
+    LeanCloud.initialize(applicationID: "App ID", applicationKey: "App Key")
     
     /* Create an object. */
     let object = LCObject(className: "Post")
