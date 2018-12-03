@@ -100,3 +100,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
 - 运行结果
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01005.png)
+
+- 数据成功写入LeanCloud
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01011.png)
