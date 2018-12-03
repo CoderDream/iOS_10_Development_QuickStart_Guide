@@ -62,6 +62,8 @@ pod install
 
 - 安装结果
 
+完成后会新建两个文件“Instagram.xcworkspace”和“Podfile.lock”，同时新建一个文件夹Pods，如图所示：
+
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01004.png)
 
 ### 重新打开项目
