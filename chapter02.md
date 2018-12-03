@@ -25,31 +25,29 @@
 
 - 设置第一个View Controller的Class
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01005.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01007.png)
 
 - 确保第一个View Controller的“Is Initial View Controller”被选中
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01008.png)
 
-## 新建 Instagram 项目 
+- 删除“ViewController.swift”文件
 
-- 新建项目
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01005.png)
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01007.png)
-
-- 项目信息
+- 选择“Move to Trash”
  
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01008.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01006.png)
 
-- 项目文件结构
+- 最终项目文件结构
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01009.png)
-
-
-## 将LeanCloud SDK 集成到 iOS 项目中
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01010.png)
 
 
-### 新增 Podfile
+## 2.2 搭建用户的登陆界面
+
+
+### 新增2个文本输入框和3个按钮
 
 - 内容如下：
 
