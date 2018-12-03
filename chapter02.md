@@ -1,28 +1,35 @@
-# 第1章　创建项目并集成LeanCloud SDK #
+# 第2章 创建用户登录界面 #
 
-## 注册LeanCloud并创建项目 ##
+## 2.1 从故事面板中创建视图 ##
 
-- 访问[https://leancloud.cn/](https://leancloud.cn/) 并注册账号
+- 新增2个 View Controller 到原 View Controller 的右侧
 
-- 登陆并进入控制台，选择【中国华东节点】节点，我的机器其他节点测试连接失败：
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01000.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02001.gif)
 
-- 创建新应用【Instagram】
+- 新增完毕
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01001.png)
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02001.png)
 
-- 输入新应用名称
-
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01006.png)
-
-- 创建成功后显示应用列表
+- 新建文件
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01002.png)
 
-- 查看应用Key
+- 选择类型为“Cocoa Touch Class”
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01003.png)
+
+- 设置Class和Subclass
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01004.png)
+
+- 设置第一个View Controller的Class
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01005.png)
+
+- 确保第一个View Controller的“Is Initial View Controller”被选中
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01008.png)
 
 ## 新建 Instagram 项目 
 
@@ -41,9 +48,10 @@
 
 ## 将LeanCloud SDK 集成到 iOS 项目中
 
-### 关闭项目
 
-- 在工程文件夹下新增 Podfile内容如下
+### 新增 Podfile
+
+- 内容如下：
 
 ```
 platform :ios, '8.0' # '12.1'
@@ -64,11 +72,6 @@ pod install
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01004.png)
 
-### 重新打开项目
-
-- 点击“Instagram.xcworkspace”文件，打开项目
-
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01010.png)
 
 ### 修改源代码
 
