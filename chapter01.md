@@ -74,7 +74,7 @@ pod install
 func application(_ application: UIApplication, didFinishLaunchingWithOptions 
 	launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    LeanCloud.initialize(applicationID: "App ID", applicationKey: "App Key")
+    LeanCloud.initialize(applicationID: "Your App ID", applicationKey: "Your App Key")
     
     /* Create an object. */
     let object = LCObject(className: "Post")
