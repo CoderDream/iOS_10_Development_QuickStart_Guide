@@ -54,6 +54,47 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // 滚动视图的窗口尺寸
+        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        
+        // 定义滚动视图的内容视图尺寸与窗口尺寸一样
+        scrollView.contentSize.height = self.view.frame.height
+        scrollViewHeight = self.view.frame.height
+        
+        
+        // 检测键盘出现或消失的状态
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // 声明隐藏虚拟键盘的操作
+        let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardTap))
+        hideTap.numberOfTapsRequired = 1
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(hideTap)
+    }
+  
+    // 检测键盘出现或消失时调用的方法
+    @objc func showKeyboard(notification: Notification) {
+        // 定义 keyboard 大小
+        let rect = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        keyboard = rect.cgRectValue
+        
+        // 当虚拟键盘出现以后，将滚动视图的实际高度缩小为屏幕高度减去键盘的高度
+        UIView.animate(withDuration: 0.4) {
+            self.scrollView.frame.size.height = self.scrollViewHeight - self.keyboard.size.height
+        }
+    }
+    
+    @objc func hideKeyboard(notification: Notification) {
+        // 当虚拟键盘消失后，将滚动视图的实际高度改变为屏幕的高度值
+        UIView.animate(withDuration: 0.4) {
+            self.scrollView.frame.size.height = self.scrollViewHeight
+        }
+    }
+    
+    // 隐藏视图中的虚拟键盘
+    @objc func hideKeyboardTap(recognizer: UITapGestureRecognizer) {
+       self.view.endEditing(true)
     }
     
 
