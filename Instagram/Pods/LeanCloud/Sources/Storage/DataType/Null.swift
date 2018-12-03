@@ -15,7 +15,7 @@ import Foundation
 
  - note: This type is not a singleton type, because Swift does not support singleton well currently.
  */
-public final class LCNull: NSObject, LCValue, LCValueExtension {
+open class LCNull: NSObject, LCValue, LCValueExtension {
     public override init() {
         super.init()
     }
@@ -24,43 +24,39 @@ public final class LCNull: NSObject, LCValue, LCValueExtension {
         /* Nothing to decode. */
     }
 
-    public func encode(with aCoder: NSCoder) {
+    open func encode(with aCoder: NSCoder) {
         /* Nothing to encode. */
     }
 
-    public func copy(with zone: NSZone?) -> Any {
+    open func copy(with zone: NSZone?) -> Any {
         return LCNull()
     }
 
-    public override func isEqual(_ object: Any?) -> Bool {
+    open override func isEqual(_ object: Any?) -> Bool {
         return object is LCNull
     }
 
-    public var jsonValue: Any {
+    open var jsonValue: AnyObject {
         return NSNull()
     }
 
-    func formattedJSONString(indentLevel: Int, numberOfSpacesForOneIndentLevel: Int = 4) -> String {
-        return "null"
-    }
-
-    public var jsonString: String {
-        return formattedJSONString(indentLevel: 0)
+    open var jsonString: String {
+        return ObjectProfiler.getJSONString(self)
     }
 
     public var rawValue: LCValueConvertible {
         return NSNull()
     }
 
-    var lconValue: Any? {
-        return jsonValue
+    var lconValue: AnyObject? {
+        return NSNull()
     }
 
     static func instance() throws -> LCValue {
         return LCNull()
     }
 
-    func forEachChild(_ body: (_ child: LCValue) throws -> Void) rethrows {
+    func forEachChild(_ body: (_ child: LCValue) -> Void) {
         /* Nothing to do. */
     }
 

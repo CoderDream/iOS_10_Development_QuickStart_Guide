@@ -14,15 +14,33 @@ import Foundation
  This class can be used to create, update and delete object.
  */
 class ObjectUpdater {
-    typealias BatchResponse = [String: [String: Any]]
+    /**
+     Get batch requests from a set of objects.
+
+     - parameter objects: A set of objects.
+
+     - returns: An array of batch requests.
+     */
+    fileprivate static func batchRequests(_ objects: Set<LCObject>) -> [BatchRequest] {
+        var requests: [BatchRequest] = []
+        let toposort = ObjectProfiler.toposort(objects)
+
+        toposort.forEach { object in
+            requests.append(contentsOf: BatchRequestBuilder.buildRequests(object))
+        }
+
+        return requests
+    }
+
+    typealias BatchResponse = [String: [String: AnyObject]]
 
     /**
      Update objects with response of batch request.
 
-     - parameter objects:  An array of object to update.
+     - parameter objects:  A set of object to update.
      - parameter response: The response of batch request.
      */
-    static func updateObjects(_ objects: [LCObject], _ response: LCResponse) {
+    static func updateObjects(_ objects: Set<LCObject>, _ response: LCResponse) {
         let value = response.value
 
         guard let dictionary = value as? BatchResponse else {
@@ -35,31 +53,9 @@ class ObjectUpdater {
             }
 
             filtered.forEach { object in
-                ObjectProfiler.shared.updateObject(object, value)
+                ObjectProfiler.updateObject(object, value)
             }
         }
-    }
-
-    /**
-     Get batch requests for an array of objects.
-
-     - parameter objects: An array of objects.
-
-     - returns: An array of batch requests.
-     */
-    private static func createSaveBatchRequests(objects: [LCObject]) throws -> [Any] {
-        var requests: [BatchRequest] = []
-        let toposort = try ObjectProfiler.shared.toposort(objects)
-
-        toposort.forEach { object in
-            requests.append(contentsOf: BatchRequestBuilder.buildRequests(object))
-        }
-
-        let jsonRequests = try requests.map { request in
-            try request.jsonValue()
-        }
-
-        return jsonRequests
     }
 
     /**
@@ -68,52 +64,60 @@ class ObjectUpdater {
      - parameter requests: A list of batch requests.
      - returns: The response of request.
      */
-    private static func saveInOneBatchRequest(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        var requests: [Any]
+    fileprivate static func sendBatchRequests(_ requests: [BatchRequest], _ objects: Set<LCObject>) -> LCResponse {
+        let parameters = [
+            "requests": requests.map { request in request.jsonValue() }
+        ]
 
-        do {
-            requests = try createSaveBatchRequests(objects: objects)
-        } catch let error {
-            return HTTPClient.default.request(error: error, completionHandler: completion)
-        }
+        let response = RESTClient.request(.post, "batch/save", parameters: parameters as [String: AnyObject])
 
-        let parameters = ["requests": requests]
+        if response.isSuccess {
+            updateObjects(objects, response)
 
-        let request = HTTPClient.default.request(.post, "batch/save", parameters: parameters) { response in
-            let result = LCBooleanResult(response: response)
-
-            switch result {
-            case .success:
-                updateObjects(objects, response)
-
-                objects.forEach { object in
-                    object.discardChanges()
-                    object.objectDidSave()
-                }
-            case .failure:
-                break
+            objects.forEach { object in
+                object.resetOperation()
             }
-
-            completion(result)
         }
 
-        return request
+        return response
+    }
+
+    /**
+     Validate that all objects should have object ID.
+
+     - parameter objects: A set of objects to validate.
+     */
+    fileprivate static func validateObjectId(_ objects: Set<LCObject>) throws {
+        try objects.forEach { object in
+            if object.objectId == nil {
+                throw LCError(code: .notFound, reason: "Object ID not found.", userInfo: nil)
+            }
+        }
     }
 
     /**
      Save independent objects in one batch request synchronously.
 
-     - parameter objects: An array of independent object.
+     - parameter objects: A set of independent objects to save.
 
      - returns: The response of request.
      */
-    private static func saveIndependentObjects(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        do {
-            let family = try ObjectProfiler.shared.family(objects)
-            return saveInOneBatchRequest(family, completionInBackground: completion)
-        } catch let error {
-            return HTTPClient.default.request(error: error, completionHandler: completion)
+    fileprivate static func saveIndependentObjects(_ objects: Set<LCObject>) -> LCResponse {
+        var family: Set<LCObject> = []
+
+        objects.forEach { object in
+            family.formUnion(ObjectProfiler.family(object))
         }
+
+        let requests = batchRequests(family)
+        let response = sendBatchRequests(requests, family)
+
+        /* Validate object ID here to avoid infinite loop when save newborn orphans. */
+        if response.isSuccess {
+            try! validateObjectId(family)
+        }
+
+        return response
     }
 
     /**
@@ -124,33 +128,21 @@ class ObjectUpdater {
      1. Save deepest newborn orphan objects in one batch request.
      2. Repeat step 1 until all descendant newborn objects saved.
 
-     - parameter objects: An array of root object.
+     - parameter object: The ancestor object.
      - returns: The response of request.
      */
-    private static func saveNewbornOrphans(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        let newbornOrphans = ObjectProfiler.shared.deepestNewbornOrphans(objects)
+    fileprivate static func saveNewbornOrphans(_ object: LCObject) -> LCResponse {
+        var response = LCResponse()
 
-        if newbornOrphans.isEmpty {
-            return HTTPClient.default.request(object: .success) { result in
-                completion(result)
-            }
-        } else {
-            let sequenceRequest = LCSequenceRequest()
+        repeat {
+            let objects = ObjectProfiler.deepestNewbornOrphans(object)
 
-            let request = saveIndependentObjects(newbornOrphans, completionInBackground: { result in
-                switch result {
-                case .success:
-                    let subsequentRequset = saveNewbornOrphans(objects, completionInBackground: completion)
-                    sequenceRequest.setCurrentRequest(subsequentRequset)
-                case .failure:
-                    completion(result)
-                }
-            })
+            guard !objects.isEmpty else { break }
 
-            sequenceRequest.setCurrentRequest(request)
-
-            return sequenceRequest
-        }
+            response = saveIndependentObjects(objects)
+        } while response.isSuccess
+        
+        return response
     }
 
     /**
@@ -171,41 +163,39 @@ class ObjectUpdater {
      We can construct a batch request when newborn object directly attachs on another object.
      However, we cannot construct a batch request for orphan object.
 
-     - parameter objects: The objects to be saved.
+     - parameter object: The root object to be saved.
 
      - returns: The response of request.
      */
-    static func save(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        var family: [LCObject]
-        let objects = objects.unique
+    static func save(_ object: LCObject) -> LCResponse {
+        object.validateBeforeSaving()
 
-        do {
-            family = try ObjectProfiler.shared.family(objects)
+        var response = saveNewbornOrphans(object)
 
-            try family.forEach { object in
-                try object.validateBeforeSaving()
-            }
-        } catch let error {
-            return HTTPClient.default.request(
-                error: error,
-                completionHandler: completion)
+        guard response.isSuccess else { return response }
+
+        /* Now, all newborn orphan objects should saved. We can save the object family safely. */
+
+        let family = ObjectProfiler.family(object)
+
+        let requests = batchRequests(family)
+
+        response = sendBatchRequests(requests, family)
+
+        return response
+    }
+
+    /**
+     Delete object synchronously.
+
+     - returns: The response of request.
+     */
+    static func delete(_ object: LCObject) -> LCResponse {
+        guard let endpoint = RESTClient.eigenEndpoint(object) else {
+            return LCResponse(LCError(code: .notFound, reason: "Object not found."))
         }
 
-        let sequenceRequest = LCSequenceRequest()
-
-        let request = saveNewbornOrphans(objects, completionInBackground: { result in
-            switch result {
-            case .success:
-                let request = saveInOneBatchRequest(family, completionInBackground: completion)
-                sequenceRequest.setCurrentRequest(request)
-            case .failure:
-                completion(result)
-            }
-        })
-
-        sequenceRequest.setCurrentRequest(request)
-
-        return sequenceRequest
+        return RESTClient.request(.delete, endpoint, parameters: nil)
     }
 
     /**
@@ -215,57 +205,46 @@ class ObjectUpdater {
 
      - returns: The response of deletion request.
      */
-    static func delete(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        if objects.isEmpty {
-            return HTTPClient.default.request(object: .success) { result in
-                completion(result)
-            }
-        } else {
-            var requests: [Any]
+    static func delete<T: LCObject>(_ objects: [T]) -> LCResponse {
+        var response = LCResponse()
 
-            do {
-                requests = try objects.unique.map { object in
-                    try BatchRequest(object: object, method: .delete).jsonValue()
-                }
-            } catch let error {
-                return HTTPClient.default.request(error: error, completionHandler: completion)
-            }
+        /* If no objects, do nothing. */
+        guard !objects.isEmpty else { return response }
 
-            let parameters = ["requests": requests]
-
-            return HTTPClient.default.request(.post, "batch", parameters: parameters) { response in
-                completion(LCBooleanResult(response: response))
-            }
+        let requests = Set<T>(objects).map { object in
+            BatchRequest(object: object, method: .delete).jsonValue()
         }
+
+        response = RESTClient.request(.post, "batch", parameters: ["requests": requests as AnyObject])
+
+        return response
     }
 
     /**
-     Handle object fetched result.
+     Handle fetched result.
 
      - parameter result:  The result returned from server.
      - parameter objects: The objects to be fetched.
 
-     - returns: A boolean result.
+     - returns: The error response, or nil if error not found.
      */
-    static func handleObjectFetchedResult(_ result: [String: Any], _ objects: [LCObject]) -> LCBooleanResult {
-        guard
-            let dictionary = result["success"] as? [String: Any],
-            let objectId = dictionary["objectId"] as? String
-        else {
-            let error = LCError(code: .objectNotFound, reason: "Object not found.")
-            return .failure(error: error)
+    static func handleFetchedResult(_ result: AnyObject?, _ objects: [LCObject]) -> LCResponse? {
+        let dictionary = (result as? [String: AnyObject]) ?? [:]
+
+        guard let objectId = dictionary["objectId"] as? String else {
+            return LCResponse(LCError(code: .objectNotFound, reason: "Object not found."))
         }
 
-        let matchedObjects = objects.filter { object in
+        let matched = objects.filter { object in
             objectId == object.objectId?.value
         }
 
-        matchedObjects.forEach { object in
-            ObjectProfiler.shared.updateObject(object, dictionary)
-            object.discardChanges()
+        matched.forEach { object in
+            ObjectProfiler.updateObject(object, dictionary)
+            object.resetOperation()
         }
 
-        return .success
+        return nil
     }
 
     /**
@@ -274,32 +253,25 @@ class ObjectUpdater {
      - parameter response: The response of fetch request.
      - parameter objects:  The objects to be fetched.
 
-     - returns: An boolean result.
+     - returns: The handled response.
      */
-    static func handleObjectFetchedResponse(_ response: LCResponse, _ objects: [LCObject]) -> LCBooleanResult {
-        let result = LCBooleanResult(response: response)
-
-        switch result {
-        case .success:
-            guard let array = response.value as? [[String: Any]] else {
-                return .failure(error: LCError(code: .malformedData, reason: "Malformed response data."))
-            }
-
-            var result: LCBooleanResult = .success
-
-            array.forEach { dictionary in
-                switch handleObjectFetchedResult(dictionary, objects) {
-                case .success:
-                    break
-                case .failure(let error):
-                    result = .failure(error: error)
-                }
-            }
-
-            return result
-        case .failure:
-            return result
+    static func handleFetchedResponse(_ response: LCResponse, _ objects: [LCObject]) -> LCResponse {
+        guard response.isSuccess else {
+            return response
         }
+        guard let results = response.value as? [[String: AnyObject]] else {
+            return LCResponse(LCError(code: .objectNotFound, reason: "Object not found."))
+        }
+
+        var response = response
+
+        for result in results {
+            if let errorResponse = handleFetchedResult(result["success"], objects) {
+                response = errorResponse
+            }
+        }
+
+        return response
     }
 
     /**
@@ -309,36 +281,56 @@ class ObjectUpdater {
 
      - returns: The response of fetching request.
      */
-    static func fetch(_ objects: [LCObject], completionInBackground completion: @escaping (LCBooleanResult) -> Void) -> LCRequest {
-        if objects.isEmpty {
-            return HTTPClient.default.request(object: .success) { result in
-                completion(result)
-            }
-        } else {
-            var requests: [Any]
+    static func fetch(_ objects: [LCObject]) -> LCResponse {
+        var response = LCResponse()
 
-            do {
-                requests = try objects.unique.map { object in
-                    try BatchRequest(object: object, method: .get).jsonValue()
-                }
-            } catch let error {
-                return HTTPClient.default.request(error: error, completionHandler: completion)
-            }
+        /* If no object, do nothing. */
+        guard !objects.isEmpty else { return response }
 
-            let parameters = ["requests": requests]
-
-            return HTTPClient.default.request(.post, "batch", parameters: parameters) { response in
-                var result = LCBooleanResult(response: response)
-
-                switch result {
-                case .success:
-                    result = handleObjectFetchedResponse(response, objects)
-                case .failure:
-                    break
-                }
-
-                completion(result)
+        /* If any object has no object ID, return not found error. */
+        for object in objects {
+            guard object.hasObjectId else {
+                return LCResponse(LCError(code: .notFound, reason: "Object ID not found."))
             }
         }
+
+        let requests = Set(objects).map { object in
+            BatchRequest(object: object, method: .get).jsonValue()
+        }
+
+        response = RESTClient.request(.post, "batch", parameters: ["requests": requests as AnyObject])
+
+        response = handleFetchedResponse(response, objects)
+
+        return response
+    }
+
+    /**
+     Fetch object synchronously.
+
+     - returns: The response of request.
+     */
+    static func fetch(_ object: LCObject) -> LCResponse {
+        guard let endpoint = RESTClient.eigenEndpoint(object) else {
+            return LCResponse(LCError(code: .notFound, reason: "Object not found."))
+        }
+
+        let response = RESTClient.request(.get, endpoint, parameters: nil)
+
+        guard response.isSuccess else {
+            return response
+        }
+
+        let dictionary = (response.value as? [String: AnyObject]) ?? [:]
+
+        guard dictionary["objectId"] != nil else {
+            return LCResponse(LCError(code: .objectNotFound, reason: "Object not found."))
+        }
+
+        ObjectProfiler.updateObject(object, dictionary)
+
+        object.resetOperation()
+
+        return response
     }
 }

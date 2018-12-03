@@ -14,7 +14,7 @@ import Foundation
  It is a wrapper of `Swift.Bool` type, used to store a boolean value.
  */
 public final class LCBool: NSObject, LCValue, LCValueExtension, ExpressibleByBooleanLiteral {
-    public private(set) var value: Bool = false
+    public fileprivate(set) var value: Bool = false
 
     public override init() {
         super.init()
@@ -49,31 +49,27 @@ public final class LCBool: NSObject, LCValue, LCValueExtension, ExpressibleByBoo
         }
     }
 
-    public var jsonValue: Any {
-        return value
-    }
-
-    func formattedJSONString(indentLevel: Int, numberOfSpacesForOneIndentLevel: Int = 4) -> String {
-        return "\(value)"
+    public var jsonValue: AnyObject {
+        return value as AnyObject
     }
 
     public var jsonString: String {
-        return formattedJSONString(indentLevel: 0)
+        return ObjectProfiler.getJSONString(self)
     }
 
     public var rawValue: LCValueConvertible {
         return value
     }
 
-    var lconValue: Any? {
-        return jsonValue
+    var lconValue: AnyObject? {
+        return value as AnyObject?
     }
 
     static func instance() -> LCValue {
         return LCBool()
     }
 
-    func forEachChild(_ body: (_ child: LCValue) throws -> Void) rethrows {
+    func forEachChild(_ body: (_ child: LCValue) -> Void) {
         /* Nothing to do. */
     }
 

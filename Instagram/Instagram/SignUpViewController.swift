@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LeanCloud
 
 class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -40,6 +41,75 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     // 注册按钮单击事件
     @IBAction func signUpBtnClicked(_ sender: UIButton) {
         print("注册按钮被单击")
+        // 隐藏 keyboard
+        self.view.endEditing(true)
+        
+        if usernameTxt.text!.isEmpty || passwordTxt.text!.isEmpty || repeatPasswordTxt.text!.isEmpty || emailTxt.text!.isEmpty || fullnameTxt.text!.isEmpty || bioTxt.text!.isEmpty || webTxt.text!.isEmpty {
+            // 弹出提示对话框
+            let alert = UIAlertController(title: "请注意", message: "请填好所有的字段", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        // 如果两次输入的密码不同
+        if passwordTxt.text != repeatPasswordTxt.text {
+            // 弹出提示对话框
+            let alert = UIAlertController(title: "请注意", message: "两次输入的密码不同", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        // 发送注册数据到服务器相关的列
+        
+//        let user = LCUser()
+//        user.username = usernameTxt.text!.lowercased()
+//        user.email = emailTxt.text!.lowercased()
+//        user.password = passwordTxt.text!
+//        user["fullname"] = fullnameTxt.text!.lowercased()
+//        user["bio"] = bioTxt.text!
+//        user["web"] = webTxt.text!.lowercased()
+//        user["gender"] =""
+//        let avaData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+//        let avaFile = AVFile(name: "iPhone.jpg", data: avaData!)
+//        user["ava"] = avaFile as? LCValue
+//        user.signUpInBackground{
+//            (success: Bool, error: Error?) in
+//              if success {
+//                  print("用户注册成功！")
+//                                                        }else {
+//                                              print(error!.localizedDescription)
+//            }
+//                                                  }
+        
+
+        
+        // https://www.jianshu.com/p/c6ccd9880694 关于LeanCloud SDK 使用中数据提交的问题
+        //提交到云平台
+        let user = LCUser()
+        user.username = LCString(usernameTxt.text!.lowercased())
+        user.email = LCString(emailTxt.text!.lowercased())
+        user.password = LCString(passwordTxt.text!)
+        user["fullname"] = LCString(fullnameTxt.text!.lowercased())
+        user["bio"] = LCString(bioTxt.text!)
+        user["web"] = LCString(webTxt.text!.lowercased())
+        user["gender"] = LCString("")
+        // 'UIImageJPEGRepresentation' has been replaced by instance method 'UIImage.jpegData(compressionQuality:)'
+        //let avaData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+        // Incorrect argument labels in call (have 'name:data:', expected 'className:objectId:')
+       // let avaFile = AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
+        //user["ava"] = avaFile as? LCValue
+        let queue = DispatchQueue(label:"llll",qos: .background)
+        print("### Done ###")
+        queue.async {
+            user.signUp()
+        }
+       
     }
     
     // 取消按钮单击事件

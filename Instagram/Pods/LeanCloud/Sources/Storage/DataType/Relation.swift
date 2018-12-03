@@ -44,14 +44,14 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
         self.parent = parent
     }
 
-    init?(dictionary: [String: Any]) {
+    init?(dictionary: [String: AnyObject]) {
         guard let type = dictionary["__type"] as? String else {
             return nil
         }
-        guard let dataType = HTTPClient.DataType(rawValue: type) else {
+        guard let dataType = RESTClient.DataType(rawValue: type) else {
             return nil
         }
-        guard case dataType = HTTPClient.DataType.relation else {
+        guard case dataType = RESTClient.DataType.relation else {
             return nil
         }
 
@@ -87,11 +87,7 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
         return value.makeIterator()
     }
 
-    public var jsonValue: Any {
-        return typedJSONValue
-    }
-
-    private var typedJSONValue: [String: String] {
+    public var jsonValue: AnyObject {
         var result = [
             "__type": "Relation"
         ]
@@ -100,31 +96,27 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
             result["className"] = className
         }
 
-        return result
-    }
-
-    func formattedJSONString(indentLevel: Int, numberOfSpacesForOneIndentLevel: Int = 4) -> String {
-        return LCDictionary(typedJSONValue).formattedJSONString(indentLevel: indentLevel, numberOfSpacesForOneIndentLevel: numberOfSpacesForOneIndentLevel)
+        return result as AnyObject
     }
 
     public var jsonString: String {
-        return formattedJSONString(indentLevel: 0)
+        return ObjectProfiler.getJSONString(self)
     }
 
     public var rawValue: LCValueConvertible {
         return self
     }
 
-    var lconValue: Any? {
-        return value.compactMap { (element) in element.lconValue }
+    var lconValue: AnyObject? {
+        return value.map { (element) in element.lconValue! } as AnyObject
     }
 
     static func instance() -> LCValue {
         return self.init()
     }
 
-    func forEachChild(_ body: (_ child: LCValue) throws -> Void) rethrows {
-        try value.forEach { element in try body(element) }
+    func forEachChild(_ body: (_ child: LCValue) -> Void) {
+        value.forEach { body($0) }
     }
 
     func add(_ other: LCValue) throws -> LCValue {
@@ -156,8 +148,8 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
 
      - parameter elements: The elements to be appended.
      */
-    func appendElements(_ elements: [Element]) throws {
-        try validateClassName(elements)
+    func appendElements(_ elements: [Element]) {
+        try! validateClassName(elements)
 
         value = value + elements
     }
@@ -176,14 +168,8 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
 
      - parameter child: The child that you want to insert.
      */
-    public func insert(_ child: LCObject) throws {
-        guard let key = key else {
-            throw LCError(code: .inconsistency, reason: "Failed to insert object to relation without key.")
-        }
-        guard let parent = parent else {
-            throw LCError(code: .inconsistency, reason: "Failed to insert object to an unbound relation.")
-        }
-        try parent.insertRelation(key, object: child)
+    public func insert(_ child: LCObject) {
+        parent!.insertRelation(key!, object: child)
     }
 
     /**
@@ -191,14 +177,8 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
 
      - parameter child: The child that you want to remove.
      */
-    public func remove(_ child: LCObject) throws {
-        guard let key = key else {
-            throw LCError(code: .inconsistency, reason: "Failed to remove object from relation without key.")
-        }
-        guard let parent = parent else {
-            throw LCError(code: .inconsistency, reason: "Failed to remove object from an unbound relation.")
-        }
-        try parent.removeRelation(key, object: child)
+    public func remove(_ child: LCObject) {
+        parent!.removeRelation(key!, object: child)
     }
 
     /**
@@ -217,7 +197,7 @@ public final class LCRelation: NSObject, LCValue, LCValueExtension, Sequence {
         } else {
             query = LCQuery(className: parent.actualClassName)
             query.extraParameters = [
-                "redirectClassNameForKey": key
+                "redirectClassNameForKey": key as AnyObject
             ]
         }
 

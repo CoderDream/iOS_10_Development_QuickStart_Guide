@@ -32,7 +32,7 @@ public final class LCACL: NSObject, LCValue, LCValueExtension {
         super.init()
     }
 
-    init?(jsonValue: Any?) {
+    init?(jsonValue: AnyObject?) {
         guard let value = jsonValue as? AccessTable else {
             return nil
         }
@@ -64,23 +64,19 @@ public final class LCACL: NSObject, LCValue, LCValueExtension {
         }
     }
 
-    public var jsonValue: Any {
-        return value
-    }
-
-    func formattedJSONString(indentLevel: Int, numberOfSpacesForOneIndentLevel: Int = 4) -> String {
-        return LCDictionary(value).formattedJSONString(indentLevel: indentLevel, numberOfSpacesForOneIndentLevel: numberOfSpacesForOneIndentLevel)
+    public var jsonValue: AnyObject {
+        return value as AnyObject
     }
 
     public var jsonString: String {
-        return formattedJSONString(indentLevel: 0)
+        return ObjectProfiler.getJSONString(self)
     }
 
     public var rawValue: LCValueConvertible {
         return self
     }
 
-    var lconValue: Any? {
+    var lconValue: AnyObject? {
         return jsonValue
     }
 
@@ -88,7 +84,7 @@ public final class LCACL: NSObject, LCValue, LCValueExtension {
         return self.init()
     }
 
-    func forEachChild(_ body: (_ child: LCValue) throws -> Void) rethrows {
+    func forEachChild(_ body: (_ child: LCValue) -> Void) {
         /* Nothing to do. */
     }
 

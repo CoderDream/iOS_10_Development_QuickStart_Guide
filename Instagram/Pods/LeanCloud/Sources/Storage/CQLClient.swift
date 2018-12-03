@@ -11,43 +11,37 @@ import Foundation
 /**
  A type represents the result value of CQL execution.
  */
-public final class LCCQLValue {
+open class LCCQLValue {
     let response: LCResponse
 
     init(response: LCResponse) {
         self.response = response
     }
 
-    var results: [[String: Any]] {
-        return (response.results as? [[String: Any]]) ?? []
+    var results: [[String: AnyObject]] {
+        return (response.results as? [[String: AnyObject]]) ?? []
     }
 
     var className: String {
-        return response["className"] ?? LCObject.objectClassName()
+        return (response["className"] as? String) ?? LCObject.objectClassName()
     }
 
     /**
      Get objects for object query.
      */
-    public var objects: [LCObject] {
+    open var objects: [LCObject] {
         let results   = self.results
         let className = self.className
 
-        do {
-            let objects = try results.map { dictionary in
-                try ObjectProfiler.shared.object(dictionary: dictionary, className: className)
-            }
-
-            return objects
-        } catch {
-            return []
+        return results.map { dictionary in
+            ObjectProfiler.object(dictionary: dictionary, className: className)
         }
     }
 
     /**
      Get count value for count query.
      */
-    public var count: Int {
+    open var count: Int {
         return response.count
     }
 }
@@ -57,8 +51,21 @@ public final class LCCQLValue {
 
  CQLClient allow you to use CQL (Cloud Query Language) to make CRUD for object.
  */
-public final class LCCQLClient {
+open class LCCQLClient {
     static let endpoint = "cloudQuery"
+
+    /// The dispatch queue for asynchronous CQL execution task.
+    static let backgroundQueue = DispatchQueue(label: "LeanCloud.CQLClient", attributes: .concurrent)
+
+    /**
+     Asynchronize task into background queue.
+
+     - parameter task:       The task to be performed.
+     - parameter completion: The completion closure to be called on main thread after task finished.
+     */
+    static func asynchronize(_ task: @escaping () -> LCCQLResult, completion: @escaping (LCCQLResult) -> Void) {
+        Utility.asynchronize(task, backgroundQueue, completion)
+    }
 
     /**
      Assemble parameters for CQL execution.
@@ -68,7 +75,7 @@ public final class LCCQLClient {
 
      - returns: The parameters for CQL execution.
      */
-    static func parameters(_ cql: String, parameters: LCArrayConvertible?) -> [String: Any] {
+    static func parameters(_ cql: String, parameters: LCArrayConvertible?) -> [String: AnyObject] {
         var result = ["cql": cql]
 
         if let parameters = parameters?.lcArray {
@@ -77,7 +84,7 @@ public final class LCCQLClient {
             }
         }
 
-        return result
+        return result as [String : AnyObject]
     }
 
     /**
@@ -88,12 +95,11 @@ public final class LCCQLClient {
 
      - returns: The result of CQL statement.
      */
-    public static func execute(_ cql: String, parameters: LCArrayConvertible? = nil) -> LCCQLResult {
-        return expect { fulfill in
-            execute(cql, parameters: parameters, completionInBackground: { result in
-                fulfill(result)
-            })
-        }
+    open static func execute(_ cql: String, parameters: LCArrayConvertible? = nil) -> LCCQLResult {
+        let parameters = self.parameters(cql, parameters: parameters)
+        let response   = RESTClient.request(.get, endpoint, parameters: parameters)
+
+        return LCCQLResult(response: response)
     }
 
     /**
@@ -103,22 +109,9 @@ public final class LCCQLClient {
      - parameter parameters: The parameters for placeholders in CQL statement.
      - parameter completion: The completion callback closure.
      */
-    public static func execute(_ cql: String, parameters: LCArrayConvertible? = nil, completion: @escaping (_ result: LCCQLResult) -> Void) -> LCRequest {
-        return execute(cql, parameters: parameters, completionInBackground: { result in
-            mainQueueAsync {
-                completion(result)
-            }
-        })
-    }
-
-    @discardableResult
-    private static func execute(_ cql: String, parameters: LCArrayConvertible? = nil, completionInBackground completion: @escaping (LCCQLResult) -> Void) -> LCRequest {
-        let parameters = self.parameters(cql, parameters: parameters)
-        let request = HTTPClient.default.request(.get, endpoint, parameters: parameters) { response in
-            let result = LCCQLResult(response: response)
+    open static func execute(_ cql: String, parameters: LCArrayConvertible? = nil, completion: @escaping (_ result: LCCQLResult) -> Void) {
+        asynchronize({ execute(cql, parameters: parameters) }) { result in
             completion(result)
         }
-
-        return request
     }
 }
