@@ -19,7 +19,7 @@
 - 致谢
 
 ### 第一部分 ###
-- [第1章　创建项目并集成　LeanCloud SDK](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/chapter01.md)
+- [第1章　创建项目并集成LeanCloud SDK](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/chapter01.md)
 - 第2章　创建用户登录界面
 - 第3章　创建用户注册界面
 - 第4章　注册视图中编写与界面相关的代码
