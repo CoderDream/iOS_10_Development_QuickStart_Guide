@@ -46,7 +46,7 @@
 - 在工程文件夹下新增 Podfile内容如下
 
 ```
-platform :ios, '8.0' # '12.1'
+platform :ios, '12.1'
 use_frameworks!
 
 target 'Instagram' do
