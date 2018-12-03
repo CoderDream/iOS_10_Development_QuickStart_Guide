@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     // ImageView 用于显示用户头像
     @IBOutlet weak var avaImg: UIImageView!
@@ -71,6 +71,16 @@ class SignUpViewController: UIViewController {
         hideTap.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
+        
+        // 为ImageView添加单击手势识别
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(loadImage))
+        imageTap.numberOfTapsRequired = 1
+        avaImg.isUserInteractionEnabled = true
+        avaImg.addGestureRecognizer(imageTap)
+        
+        // 改变avaImg的外观为圆形
+        avaImg.layer.cornerRadius = avaImg.frame.width / 2
+        avaImg.clipsToBounds = true
     }
   
     // 检测键盘出现或消失时调用的方法
@@ -97,7 +107,26 @@ class SignUpViewController: UIViewController {
        self.view.endEditing(true)
     }
     
-
+    // 为ImageView添加单击手势识别
+    @objc func loadImage(recognizer: UITapGestureRecognizer) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    // 关联选择好的照片图像到ImageView
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        avaImg.image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // 用户取消获取器操作时调用的方法
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
