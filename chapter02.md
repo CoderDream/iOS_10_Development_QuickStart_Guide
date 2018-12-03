@@ -59,13 +59,34 @@
 
 ## 2.3 为SignInVC类的视图创建Outlet和Action关联
 
-![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02012.png)
-
+- 打开助手编辑器模式，左边显示Main.storyboard，右边显示SignInVC ：
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02013.png)
 
+### 2.3.2 为SignInVC创建Outlet
+
+- 设置usernameTxt的Outlet关联
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02012.png)
+
+### 2.3.2 为SignInVC创建Action
+
+- 为SignInVC添加Action方法
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02014.png)
 
+- “登陆”按钮的关联信息
 
 ![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02015.png)
+
+- 修改signInBtnClicked(_:)方法
+
+```swift
+@IBAction func signInBtnClicked(_ sender: UIButton) {
+    print("登录按钮被单击")
+}
+```
+
+- 执行结果：
+
+![](https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter02/chapter02016.png)
