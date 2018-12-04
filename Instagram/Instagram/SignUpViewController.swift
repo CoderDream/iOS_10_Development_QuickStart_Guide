@@ -100,10 +100,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         user["web"] = LCString(webTxt.text!.lowercased())
         user["gender"] = LCString("")
         // 'UIImageJPEGRepresentation' has been replaced by instance method 'UIImage.jpegData(compressionQuality:)'
-        //let avaData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+        let avaData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
         // Incorrect argument labels in call (have 'name:data:', expected 'className:objectId:')
-       // let avaFile = AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
-        //user["ava"] = avaFile as? LCValue
+        let avaFile = LCFile(url: "https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01000.png") //AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
+        user["ava"] = avaFile //as? LCValue
 //        let queue = DispatchQueue(label:"llll",qos: .background)
 //        print("### Done ###")
 //        queue.async {
