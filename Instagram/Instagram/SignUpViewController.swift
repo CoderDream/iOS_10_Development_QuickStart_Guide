@@ -87,7 +87,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
 //            }
 //                                                  }
         
-
+        
         
         // https://www.jianshu.com/p/c6ccd9880694 关于LeanCloud SDK 使用中数据提交的问题
         //提交到云平台
@@ -104,11 +104,22 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Incorrect argument labels in call (have 'name:data:', expected 'className:objectId:')
        // let avaFile = AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
         //user["ava"] = avaFile as? LCValue
-        let queue = DispatchQueue(label:"llll",qos: .background)
-        print("### Done ###")
-        queue.async {
-            user.signUp()
-        }
+//        let queue = DispatchQueue(label:"llll",qos: .background)
+//        print("### Done ###")
+//        queue.async {
+//            user.signUp()
+//        }
+        
+       // let user = LCUser()
+        
+        //let username = "user" + LeanCloud.Utility.uuid()
+       // let password = "qwerty"
+        
+        //user.username = LCString(username)
+        //user.password = LCString(password)
+        print("result: \(user)")
+       let result = user.signUp()
+        print("result: \(result)")
        
     }
     
@@ -151,6 +162,14 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         // 改变avaImg的外观为圆形
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         avaImg.clipsToBounds = true
+        
+        usernameTxt.text = "CoderDream";
+        passwordTxt.text = "123";
+        repeatPasswordTxt.text = "123";
+        emailTxt.text = "abc@qq.com";
+        fullnameTxt.text = "许林";
+        bioTxt.text = "iOS程序猿";
+        webTxt.text = "http://coderdream.github.io";
     }
   
     // 检测键盘出现或消失时调用的方法

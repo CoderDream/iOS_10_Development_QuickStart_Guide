@@ -18,3 +18,18 @@ Success
 2018-12-03 15:33:46.103248+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
 2018-12-03 15:33:46.103299+0800 Instagram[39609:3950070] TIC Read Status [2:0x0]: 1:57
 2018-12-03 15:36:00.005313+0800 Instagram[39609:3949895] Could not load IOSurface for time string. Rendering locally instead.
+
+
+
+Last login: Mon Dec  3 16:35:16 on ttys000
+CoderDreamdeMac:~ coderdream$ cd /Users/coderdream/Documents/iOS_10_Development_QuickStart_Guide/Instagram
+CoderDreamdeMac:Instagram coderdream$ pod install
+Analyzing dependencies
+Downloading dependencies
+Installing Alamofire (4.8.0)
+Installing LeanCloud (15.0.0)
+Generating Pods project
+Integrating client project
+Sending stats
+Pod installation complete! There is 1 dependency from the Podfile and 2 total pods installed.
+CoderDreamdeMac:Instagram coderdream$ 

@@ -15,7 +15,7 @@
 		3FDC722221B563CE00295375 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC722121B563CE00295375 /* SignInViewController.swift */; };
 		3FDC722421B563E300295375 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC722321B563E300295375 /* SignUpViewController.swift */; };
 		3FDC722621B563F800295375 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC722521B563F800295375 /* ResetPasswordViewController.swift */; };
-		8D6517A97C5E1484359D16EE /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8049E89D14BE42635CD95E41 /* Pods_Instagram.framework */; };
+		BD1F01F99550400672418543 /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A5D95FAE388E82BC91E0C1 /* Pods_Instagram.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		3FDC722121B563CE00295375 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		3FDC722321B563E300295375 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3FDC722521B563F800295375 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		8049E89D14BE42635CD95E41 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A5D95FAE388E82BC91E0C1 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D6517A97C5E1484359D16EE /* Pods_Instagram.framework in Frameworks */,
+				BD1F01F99550400672418543 /* Pods_Instagram.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 		F9E3B2675A9F9F0DE967A264 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8049E89D14BE42635CD95E41 /* Pods_Instagram.framework */,
+				D7A5D95FAE388E82BC91E0C1 /* Pods_Instagram.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,6 +261,7 @@
 		3F70D7E221B235AA001DD234 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -322,6 +323,7 @@
 		3F70D7E321B235AA001DD234 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -378,6 +380,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DF8E8DE34D80A582DB6AC89 /* Pods-Instagram.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -403,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E8FC953043D13D4BF457717 /* Pods-Instagram.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
