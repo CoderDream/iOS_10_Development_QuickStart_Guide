@@ -2,14 +2,9 @@
 
 笔记环境： 
 
-| Item  | Version  |
+| macOS  | Xcode  |Swift |iOS      |Alamofire |LeanCloud      | 
 |:------------- |:---------------:| 
-| macOS      | 10.14.1 |
-| Xcode      | 10.1        |
-| Swift | 4.2        |
-| iOS      | 12.1 |
-| Alamofire | 4.8.0        |
-| LeanCloud      | 15.0.0 |
+| 10.14.1 |10.1       |  4.2        |  12.1 |  4.8.0       | 15.0.0 |
 
 ### 编辑推荐 ###
 
