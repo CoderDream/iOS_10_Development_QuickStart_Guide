@@ -102,18 +102,18 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //let number     : LCNumber     = 42
         //let bool       : LCBool       = true
-        let string     : LCString     = "ava.jpg"
+        //let string     : LCString     = "ava.jpg"
         //let object     : LCObject     = LCObject()
         
         // 'UIImageJPEGRepresentation' has been replaced by instance method 'UIImage.jpegData(compressionQuality:)'
-        let avaData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
-        let dictionary : LCDictionary = LCDictionary(["name": string, "Data": avaData])
+        let avatarImageData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+        //let dictionary : LCDictionary = LCDictionary(["name": string, "Data": avatarImageData])
         // Incorrect argument labels in call (have 'name:data:', expected 'className:objectId:')
         // let avaFile = LCFile(url: "https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01000.png") //AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
-        let avaFile = LCFile()
-        avaFile.name = "ava.jpg"
-        avaFile.metaData = dictionary
-        user["ava"] = avaFile as LCValue
+        //let avaFile = LCFile()
+        //avaFile.name = "ava.jpg"
+        //avaFile.metaData = dictionary
+        //user["ava"] = avaFile as LCValue
         //        let queue = DispatchQueue(label:"llll",qos: .background)
         //        print("### Done ###")
         //        queue.async {
@@ -127,23 +127,41 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //user.username = LCString(username)
         //user.password = LCString(password)
-        print("result: \(user)")
-        let result = user.signUp()
+
         
-        if result.isSuccess {
-            print("用户注册成功")
+        
+        let avatarFile = LCFile(payload: .data(data: avatarImageData))
+        avatarFile.name = "ava.jpg"
+        
+        _ = avatarFile.save { result in
+            switch result {
+            case .success:
+                user.avatarFile = avatarFile
+                print("result: \(user)")
+                let result = user.signUp()
+                
+                if result.isSuccess {
+                    print("用户注册成功")
+                    
+                    // 记住登录的用户
+                    UserDefaults.standard.set(user.username, forKey: "username")
+                    UserDefaults.standard.synchronize()
+                    
+                    // 从 AppDelegate 类中调用 login 方法
+                    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.login()
+                } else {
+                    print("")
+                }
+                print("result: \(result)")
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+                //XCTFail(error.localizedDescription)
+            }
             
-            // 记住登录的用户
-            UserDefaults.standard.set(user.username, forKey: "username")
-            UserDefaults.standard.synchronize()
-            
-            // 从 AppDelegate 类中调用 login 方法
-            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.login()
-        } else {
-            print("")
+            //expectation.fulfill()
         }
-        print("result: \(result)")
         
 //        user.signUpInBackground { (success: Bool, error: Error?) in
 //            if success {
