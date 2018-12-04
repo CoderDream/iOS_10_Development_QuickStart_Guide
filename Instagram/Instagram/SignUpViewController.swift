@@ -67,25 +67,25 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // 发送注册数据到服务器相关的列
         
-//        let user = LCUser()
-//        user.username = usernameTxt.text!.lowercased()
-//        user.email = emailTxt.text!.lowercased()
-//        user.password = passwordTxt.text!
-//        user["fullname"] = fullnameTxt.text!.lowercased()
-//        user["bio"] = bioTxt.text!
-//        user["web"] = webTxt.text!.lowercased()
-//        user["gender"] =""
-//        let avaData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
-//        let avaFile = AVFile(name: "iPhone.jpg", data: avaData!)
-//        user["ava"] = avaFile as? LCValue
-//        user.signUpInBackground{
-//            (success: Bool, error: Error?) in
-//              if success {
-//                  print("用户注册成功！")
-//                                                        }else {
-//                                              print(error!.localizedDescription)
-//            }
-//                                                  }
+        //        let user = LCUser()
+        //        user.username = usernameTxt.text!.lowercased()
+        //        user.email = emailTxt.text!.lowercased()
+        //        user.password = passwordTxt.text!
+        //        user["fullname"] = fullnameTxt.text!.lowercased()
+        //        user["bio"] = bioTxt.text!
+        //        user["web"] = webTxt.text!.lowercased()
+        //        user["gender"] =""
+        //        let avaData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+        //        let avaFile = AVFile(name: "iPhone.jpg", data: avaData!)
+        //        user["ava"] = avaFile as? LCValue
+        //        user.signUpInBackground{
+        //            (success: Bool, error: Error?) in
+        //              if success {
+        //                  print("用户注册成功！")
+        //                                                        }else {
+        //                                              print(error!.localizedDescription)
+        //            }
+        //                                                  }
         
         
         
@@ -99,28 +99,61 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         user["bio"] = LCString(bioTxt.text!)
         user["web"] = LCString(webTxt.text!.lowercased())
         user["gender"] = LCString("")
+        
+        //let number     : LCNumber     = 42
+        //let bool       : LCBool       = true
+        let string     : LCString     = "ava.jpg"
+        //let object     : LCObject     = LCObject()
+        
         // 'UIImageJPEGRepresentation' has been replaced by instance method 'UIImage.jpegData(compressionQuality:)'
         let avaData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+        let dictionary : LCDictionary = LCDictionary(["name": string, "Data": avaData])
         // Incorrect argument labels in call (have 'name:data:', expected 'className:objectId:')
-        let avaFile = LCFile(url: "https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01000.png") //AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
-        user["ava"] = avaFile //as? LCValue
-//        let queue = DispatchQueue(label:"llll",qos: .background)
-//        print("### Done ###")
-//        queue.async {
-//            user.signUp()
-//        }
+        // let avaFile = LCFile(url: "https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/snapshot/chapter01/chapter01000.png") //AVFile(name: "iPhone.jpg", data: avaData!) //  LCFile(url: "") //
+        let avaFile = LCFile()
+        avaFile.name = "ava.jpg"
+        avaFile.metaData = dictionary
+        user["ava"] = avaFile as LCValue
+        //        let queue = DispatchQueue(label:"llll",qos: .background)
+        //        print("### Done ###")
+        //        queue.async {
+        //            user.signUp()
+        //        }
         
-       // let user = LCUser()
+        // let user = LCUser()
         
         //let username = "user" + LeanCloud.Utility.uuid()
-       // let password = "qwerty"
+        // let password = "qwerty"
         
         //user.username = LCString(username)
         //user.password = LCString(password)
         print("result: \(user)")
-       let result = user.signUp()
+        let result = user.signUp()
+        
+        if result.isSuccess {
+            print("用户注册成功")
+            
+            // 记住登录的用户
+            UserDefaults.standard.set(user.username, forKey: "username")
+            UserDefaults.standard.synchronize()
+            
+            // 从 AppDelegate 类中调用 login 方法
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.login()
+        } else {
+            print("")
+        }
         print("result: \(result)")
-       
+        
+//        user.signUpInBackground { (success: Bool, error: Error?) in
+//            if success {
+//
+//            } else {
+//
+//            }
+//
+//        }  //:(completionInBackground: <#T##(LCBooleanResult) -> Void#>)
+        
     }
     
     // 取消按钮单击事件
@@ -130,10 +163,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         // 以动画的方式去除通过modally方式添加进来的控制器
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         // 滚动视图的窗口尺寸
         scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -163,15 +196,30 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         avaImg.clipsToBounds = true
         
-        usernameTxt.text = "CoderDream";
+        //通过date获得组件
+        let date2 = Date()
+        
+        //date -> string
+        let myFormatter = DateFormatter()
+        //这里有很多默认的日期格式
+        myFormatter.dateStyle = .long
+        //默认的时间格式
+        myFormatter.timeStyle = .long
+        myFormatter.string(from: date2)
+        
+        //也可以使用自定义的格式
+        myFormatter.dateFormat = "yyyyMMddhhmmss"
+        let datestr = myFormatter.string(from: date2)
+        
+        usernameTxt.text = "CD_" + datestr;
         passwordTxt.text = "123";
         repeatPasswordTxt.text = "123";
-        emailTxt.text = "abc@qq.com";
+        emailTxt.text = "CD_" + datestr + "@qq.com";
         fullnameTxt.text = "许林";
         bioTxt.text = "iOS程序猿";
         webTxt.text = "http://coderdream.github.io";
     }
-  
+    
     // 检测键盘出现或消失时调用的方法
     @objc func showKeyboard(notification: Notification) {
         // 定义 keyboard 大小
@@ -193,7 +241,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     // 隐藏视图中的虚拟键盘
     @objc func hideKeyboardTap(recognizer: UITapGestureRecognizer) {
-       self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     // 为ImageView添加单击手势识别
@@ -217,13 +265,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
