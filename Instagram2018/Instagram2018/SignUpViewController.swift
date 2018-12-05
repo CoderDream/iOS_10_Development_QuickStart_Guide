@@ -95,22 +95,20 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                     
                     // 记住登录的用户
                     // var usernameLC: LCString?
-                    var usernameString: String?
-                    if let usernameLC = user.username {
-                        usernameString = usernameLC.value
-                        print(usernameString)
-                        // 这里只能存储特定的可选类型，不能存LCString类型
-                        UserDefaults.standard.set(usernameString, forKey: "username")
-                        UserDefaults.standard.synchronize()
-                        
-                        // 从 AppDelegate 类中调用 login 方法
-                        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.login()
-                    }
-                    
-
+//                    var usernameString: String?
+//                    if let usernameLC = user.username {
+//                        usernameString = usernameLC.value
+//                        // print(usernameString)
+//                        // 这里只能存储特定的可选类型，不能存LCString类型
+//                        UserDefaults.standard.set(usernameString, forKey: "username")
+//                        UserDefaults.standard.synchronize()
+//
+//                        // 从 AppDelegate 类中调用 login 方法
+//                        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+//                        appDelegate.login()
+//                    }
                 } else {
-                    print("")
+                    print("用户注册失败")
                 }
                 print("result: \(result)")
                 

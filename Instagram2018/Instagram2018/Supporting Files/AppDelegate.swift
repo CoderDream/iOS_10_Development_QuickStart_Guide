@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
         }
         
-        login()
+        // login()
         
         return true
     }
