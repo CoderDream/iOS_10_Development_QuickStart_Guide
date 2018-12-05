@@ -68,14 +68,17 @@ class SignInViewController: UIViewController {
         
         forgotBtn.frame = CGRect(x: 10, y: passwordTxt.frame.origin.y + 30, width: self.view.frame.width - 20, height: 30)
         signInBtn.frame = CGRect(x: 20, y: forgotBtn.frame.origin.y + 40, width: self.view.frame.width / 4, height: 30)
-        // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        // bug need to fix Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
         print(self.view.frame.width)
         print(signInBtn.frame.width)
         print(signInBtn.frame.origin.y)
-        print(signInBtn.frame.width)  
+        print(signInBtn.frame.width)
         
-        
-        signUpBtn.frame = CGRect(x: self.view.frame.width - signInBtn.frame.width - 20, y: signInBtn.frame.origin.y, width: signInBtn.frame.width, height: 30)
+//        394.0
+//        98.5
+//        260.0
+//        98.5
+        //signUpBtn.frame = CGRect(x: self.view.frame.width - signInBtn.frame.width - 20, y: signInBtn.frame.origin.y, width: signInBtn.frame.width, height: 30)
         
         // Do any additional setup after loading the view.
         // 声明隐藏虚拟键盘的操作
