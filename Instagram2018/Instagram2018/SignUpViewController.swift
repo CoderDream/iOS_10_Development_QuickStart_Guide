@@ -135,6 +135,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func cancelBtnClicked(_ sender: UIButton) {
         print("取消按钮被单击")
         
+        // 在单击取消按钮的时候隐藏键盘
+        self.view.endEditing(true)
+        
         // 以动画的方式去除通过modally方式添加进来的控制器
         self.dismiss(animated: true, completion: nil)
     }
@@ -144,6 +147,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Do any additional setup after loading the view.
         // 滚动视图的窗口尺寸
         scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        scrollView.contentSize.height = self.view.frame.height
+        scrollViewHeight = self.view.frame.height
         
         // 定义滚动视图的内容视图尺寸与窗口尺寸一样
         scrollView.contentSize.height = self.view.frame.height
@@ -168,6 +173,22 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         // 改变avaImg的外观为圆形
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         avaImg.clipsToBounds = true
+        
+        // UI元素布局
+        avaImg.frame = CGRect(x: self.view.frame.width / 2 - 40, y: 40, width: 80, height: 80)
+        
+        let viewWidth = self.view.frame.width
+        usernameTxt.frame = CGRect(x: 10, y: avaImg.frame.origin.y + 90, width: viewWidth - 20, height: 30)
+        passwordTxt.frame = CGRect(x: 10, y: usernameTxt.frame.origin.y + 40, width: viewWidth - 20, height: 30)
+        repeatPasswordTxt.frame = CGRect(x: 10, y: passwordTxt.frame.origin.y + 40, width: viewWidth - 20, height: 30)
+        
+        emailTxt.frame = CGRect(x: 10, y: repeatPasswordTxt.frame.origin.y + 60, width: viewWidth - 20, height: 30)
+        fullnameTxt.frame = CGRect(x: 10, y: emailTxt.frame.origin.y + 40, width: viewWidth - 20, height: 30)
+        bioTxt.frame = CGRect(x: 10, y: fullnameTxt.frame.origin.y + 40, width: viewWidth - 20, height: 30)
+        webTxt.frame = CGRect(x: 10, y: bioTxt.frame.origin.y + 40, width: viewWidth - 20, height: 30)
+        
+        signUpBtn.frame = CGRect(x: 20, y: webTxt.frame.origin.y + 50, width: viewWidth / 4, height: 30)
+        cancelBtn.frame = CGRect(x: viewWidth - viewWidth / 4 - 20, y: signUpBtn.frame.origin.y, width: viewWidth / 4, height: 30)
         
         //通过date获得组件
         let currentDate = Date()

@@ -11,6 +11,8 @@ import LeanCloud
 
 class SignInViewController: UIViewController {
     
+    @IBOutlet var label: UIView!
+    
     // 输入框：用户名、密码
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
@@ -58,6 +60,22 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        label.frame = CGRect(x: 10, y: 80, width: self.view.frame.width - 20, height: 50)
+        
+        usernameTxt.frame = CGRect(x: 10, y: label.frame.origin.y + 70, width: self.view.frame.width - 20, height: 30)
+        passwordTxt.frame = CGRect(x: 10, y: usernameTxt.frame.origin.y + 40, width: self.view.frame.width - 20, height: 30)
+        
+        forgotBtn.frame = CGRect(x: 10, y: passwordTxt.frame.origin.y + 30, width: self.view.frame.width - 20, height: 30)
+        signInBtn.frame = CGRect(x: 20, y: forgotBtn.frame.origin.y + 40, width: self.view.frame.width / 4, height: 30)
+        // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        print(self.view.frame.width)
+        print(signInBtn.frame.width)
+        print(signInBtn.frame.origin.y)
+        print(signInBtn.frame.width)  
+        
+        
+        signUpBtn.frame = CGRect(x: self.view.frame.width - signInBtn.frame.width - 20, y: signInBtn.frame.origin.y, width: signInBtn.frame.width, height: 30)
         
         // Do any additional setup after loading the view.
         // 声明隐藏虚拟键盘的操作

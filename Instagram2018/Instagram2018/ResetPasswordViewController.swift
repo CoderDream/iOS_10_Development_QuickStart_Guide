@@ -50,13 +50,28 @@ class ResetPasswordViewController: UIViewController {
     }
     
     @IBAction func cancelBtnClick(_ sender: AnyObject) {
+        // 在单击取消按钮的时候隐藏键盘
+        self.view.endEditing(true)
+        
         self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        // UI元素布局
+        emailTxt.frame = CGRect(x: 10, y: 120, width: self.view.frame.width - 20, height: 30)
+        resetBtn.frame = CGRect(x: 20, y: emailTxt.frame.origin.y + 50, width: self.view.frame.width / 4, height: 30)
+        cancelBtn.frame = CGRect(x: self.view.frame.width / 4 * 3 - 20, y: resetBtn.frame.origin.y, width: self.view.frame.width / 4, height: 30)
+        
+        // 隐藏虚拟键盘的点击手势
+        let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        hideTap.numberOfTapsRequired = 1
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(hideTap)
+    }
+    
+    @objc func hideKeyboard(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
     
 
