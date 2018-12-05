@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Pacifico.ttf">
+            <string>Pacifico</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -63,9 +68,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Instagram" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wh2-tV-D5K">
-                                <rect key="frame" x="129" y="66" width="160" height="80"/>
+                                <rect key="frame" x="47" y="43" width="320" height="107"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -75,7 +80,7 @@
                     </view>
                     <connections>
                         <outlet property="forgotBtn" destination="gi9-Wl-hAB" id="mre-98-Xkt"/>
-                        <outlet property="label" destination="8bC-Xf-vdC" id="1LN-Rx-VzR"/>
+                        <outlet property="label" destination="wh2-tV-D5K" id="I23-ky-oeS"/>
                         <outlet property="passwordTxt" destination="I4E-Hc-chr" id="Bp5-dl-ISt"/>
                         <outlet property="signInBtn" destination="duf-gm-Cec" id="mMI-Pz-Rg1"/>
                         <outlet property="usernameTxt" destination="Smg-6Z-j71" id="b19-yC-lXx"/>
