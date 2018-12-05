@@ -1,0 +1,7 @@
+platform :ios, '12.1' # '12.1' # '8.0'
+use_frameworks!
+
+xcodeproj '/Users/coderdream/Documents/iOS_10_Development_QuickStart_Guide/Instagram2018/Instagram2018.xcodeproj'
+target 'Instagram2018' do
+   pod 'LeanCloud'
+end
