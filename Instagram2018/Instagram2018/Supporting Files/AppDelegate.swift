@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LeanCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        LCApplication.default.set(
+            id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
+            key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
+        )
+        let post = LCObject(className: "Post")
+        
+        do {
+            try post.set("words", value: "Hello World!")
+            
+            _ = post.save { result in
+                switch result {
+                case .success: print("Success")
+                case .failure(let error):
+                    print("Failure")
+                    print("出错了：\(error)")
+                    break
+                }
+            }
+        } catch {            
+        }
         return true
     }
 
