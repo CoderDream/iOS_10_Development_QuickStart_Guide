@@ -94,12 +94,21 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                     print("用户注册成功")
                     
                     // 记住登录的用户
-                    UserDefaults.standard.set(user.username, forKey: "username")
-                    UserDefaults.standard.synchronize()
+                    // var usernameLC: LCString?
+                    var usernameString: String?
+                    if let usernameLC = user.username {
+                        usernameString = usernameLC.value
+                        print(usernameString)
+                        // 这里只能存储特定的可选类型，不能存LCString类型
+                        UserDefaults.standard.set(usernameString, forKey: "username")
+                        UserDefaults.standard.synchronize()
+                        
+                        // 从 AppDelegate 类中调用 login 方法
+                        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.login()
+                    }
                     
-                    // 从 AppDelegate 类中调用 login 方法
-                    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.login()
+
                 } else {
                     print("")
                 }
@@ -142,7 +151,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         scrollView.contentSize.height = self.view.frame.height
         scrollViewHeight = self.view.frame.height
         
-        
         // 检测键盘出现或消失的状态
         NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -164,7 +172,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         avaImg.clipsToBounds = true
         
         //通过date获得组件
-        let date2 = Date()
+        let currentDate = Date()
         
         //date -> string
         let myFormatter = DateFormatter()
@@ -172,11 +180,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         myFormatter.dateStyle = .long
         //默认的时间格式
         myFormatter.timeStyle = .long
-        myFormatter.string(from: date2)
+        myFormatter.string(from: currentDate)
         
         //也可以使用自定义的格式
         myFormatter.dateFormat = "yyyyMMddhhmmss"
-        let datestr = myFormatter.string(from: date2)
+        let datestr = myFormatter.string(from: currentDate)
         
         usernameTxt.text = "CD_" + datestr;
         passwordTxt.text = "123";

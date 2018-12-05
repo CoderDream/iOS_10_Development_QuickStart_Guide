@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // 如果之前成功登录过
         if username != nil {
+            print(username)
+            print("之前成功登录过")
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let myTabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
             window?.rootViewController = myTabBar
@@ -49,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
         }
         
-        // login()
+        login()
         
         return true
     }
