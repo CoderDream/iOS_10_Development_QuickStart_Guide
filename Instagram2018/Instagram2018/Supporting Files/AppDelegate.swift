@@ -14,7 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    func login() {
+        // 获取 UserDefaults 中存储的 Key 为 username 的值
+        let username: String? = UserDefaults.standard.string(forKey: "username")
+        
+        // 如果之前成功登录过
+        if username != nil {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+            window?.rootViewController = myTabBar
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         LCApplication.default.set(
@@ -35,8 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     break
                 }
             }
-        } catch {            
+        } catch {
         }
+        
+        // login()
+        
         return true
     }
 
