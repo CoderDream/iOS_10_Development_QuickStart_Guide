@@ -23,15 +23,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="用户名" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Smg-6Z-j71">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" text="cd123" borderStyle="roundedRect" placeholder="用户名" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Smg-6Z-j71">
                                 <rect key="frame" x="24" y="184" width="370" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" hint="用户名"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="I4E-Hc-chr">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="I4E-Hc-chr">
                                 <rect key="frame" x="20" y="255" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -261,6 +261,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="jGF-Dc-H2N" kind="relationship" relationship="viewControllers" id="gx2-Jx-AzJ"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMt-2F-aMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -269,7 +272,7 @@
         <!--Home View Controller-->
         <scene sceneID="bCE-Xp-ihs">
             <objects>
-                <collectionViewController id="Bzs-EI-FCC" customClass="HomeViewController" customModule="Instagram2018" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="HomeViewController" id="Bzs-EI-FCC" customClass="HomeViewController" customModule="Instagram2018" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="D0Q-f9-TzA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -396,10 +399,30 @@
                             <outlet property="delegate" destination="Bzs-EI-FCC" id="OYY-Kd-aX3"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="YiV-Hw-aOv"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ib4-BP-gPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857.9710144927537" y="671.73913043478262"/>
+            <point key="canvasLocation" x="2765.217391304348" y="671.73913043478262"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="dhP-8A-PYA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jGF-Dc-H2N" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="UNT-DY-iVB"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qxx-sj-yRj">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Bzs-EI-FCC" kind="relationship" relationship="rootViewController" id="WuM-5K-18S"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bxc-ig-vBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2026" y="672"/>
         </scene>
     </scenes>
     <resources>

@@ -46,13 +46,13 @@ class SignInViewController: UIViewController {
         if result.isSuccess {
             print("用户登录成功")
             
-//            // 记住登录的用户
-//            UserDefaults.standard.set(usernameTxt.text!, forKey: "username")
-//            UserDefaults.standard.synchronize()
-//            
-//            // 从 AppDelegate 类中调用 login 方法
-//            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.login()
+            // 记住登录的用户
+            UserDefaults.standard.set(usernameTxt.text!, forKey: "username")
+            UserDefaults.standard.synchronize()
+            
+            // 从 AppDelegate 类中调用 login 方法
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.login()
         } else {
             print("")
         }

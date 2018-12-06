@@ -114,21 +114,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
             case .failure(let error):
                 print(error.localizedDescription)
-                //XCTFail(error.localizedDescription)
             }
-            
-            //expectation.fulfill()
         }
-        
-        //        user.signUpInBackground { (success: Bool, error: Error?) in
-        //            if success {
-        //
-        //            } else {
-        //
-        //            }
-        //
-        //        }  //:(completionInBackground: <#T##(LCBooleanResult) -> Void#>)
-        
     }
     
     // 取消按钮单击事件
