@@ -14,46 +14,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    func login() {
+        // 获取 UserDefaults 中存储的 Key 为 username 的值
+        let username: String? = UserDefaults.standard.string(forKey: "username")
+        
+        // 如果之前成功登录过
+        if username != nil {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+            window?.rootViewController = myTabBar
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
         // version iOS 8.0
-        LeanCloud.initialize(applicationID: "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", applicationKey: "3wnkDhfhLxv8QQQaXT4N9lWT")
-        /* Create an object. */
-        let object = LCObject(className: "Post")
-        object.set("words", value: "Hello World!")
-        /* Save the object to LeanCloud application. */
-        object.save { result in
-            switch result {
-            case .success: print("Success")
-            case .failure: print("Failure")
-            }
-        }
+//        LeanCloud.initialize(applicationID: "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", applicationKey: "3wnkDhfhLxv8QQQaXT4N9lWT")
+//        /* Create an object. */
+//        let object = LCObject(className: "Post")
+//        object.set("words", value: "Hello World!")
+//        /* Save the object to LeanCloud application. */
+//        object.save { result in
+//            switch result {
+//            case .success: print("Success")
+//            case .failure: print("Failure")
+//            }
+//        }
         
         
         // version iOS 12.1
-//        LCApplication.default.set(
-//            id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
-//            key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
-//        )
-//        let post = LCObject(className: "Post")
-//        
-//        do {
-//            try post.set("words", value: "Hello World!")
-//            
-//            _ = post.save { result in
-//                switch result {
-//                case .success: print("Success")
-//                case .failure(let error):
-//                    print("Failure")
-//                    print("出错了：\(error)")
-//                    break
-//                }
-//            }
-//        } catch {
-//            
-//        }
+        LCApplication.default.set(
+            id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
+            key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
+        )
+        let post = LCObject(className: "Post")
+        
+        do {
+            try post.set("words", value: "Hello World!")
+            
+            _ = post.save { result in
+                switch result {
+                case .success: print("Success")
+                case .failure(let error):
+                    print("Failure")
+                    print("出错了：\(error)")
+                    break
+                }
+            }
+        } catch {
+            
+        }
+        
+       // LCAna
+        
+        login()
         
         // AVAnalytics.trackAppOpened(launchOptions: launchOptions)
         
