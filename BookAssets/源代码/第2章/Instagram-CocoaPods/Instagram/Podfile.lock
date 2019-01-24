@@ -1,18 +1,29 @@
 PODS:
-  - AVOSCloud (3.1.4)
-  - AVOSCloudCrashReporting (3.1.4):
-    - AVOSCloud
-  - AVOSCloudIM (3.1.4):
-    - AVOSCloud
+  - Alamofire (4.8.0)
+  - LeanCloud (15.0.0):
+    - LeanCloud/Foundation (= 15.0.0)
+    - LeanCloud/LocalStorage (= 15.0.0)
+    - LeanCloud/Storage (= 15.0.0)
+  - LeanCloud/Foundation (15.0.0)
+  - LeanCloud/LocalStorage (15.0.0):
+    - LeanCloud/Foundation
+  - LeanCloud/Storage (15.0.0):
+    - Alamofire (~> 4.8.0)
+    - LeanCloud/Foundation
+    - LeanCloud/LocalStorage
 
 DEPENDENCIES:
-  - AVOSCloud
-  - AVOSCloudCrashReporting
-  - AVOSCloudIM
+  - LeanCloud
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - LeanCloud
 
 SPEC CHECKSUMS:
-  AVOSCloud: 2be1640178facaac8343d67ed4d5348f4dffecd7
-  AVOSCloudCrashReporting: 75d61571dd6087a096c7be8f3a2a9283fe858bbd
-  AVOSCloudIM: e2934a3128b018eeb5c9d923822ab287315b0b7f
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  LeanCloud: 62fe4e615494425081fd719c0d56fae130f764ea
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: 348dcf2a537064a17e427bc41b2126de58a8980f
+
+COCOAPODS: 1.5.3
