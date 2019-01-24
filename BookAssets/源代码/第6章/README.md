@@ -40,7 +40,7 @@ _ = avatarFile.save { result in
 }
 ```
 
-- 注册页面  
+- 注册页面(iPhone 6 Plus 1920*1080，没有适配)  
 ![](images/00_Screen.jpg)
 
 - 控制台输出
