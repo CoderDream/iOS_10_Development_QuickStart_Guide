@@ -7,25 +7,37 @@
 //
 
 import UIKit
-import AVOSCloud
+import LeanCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
-
-
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
-    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz",
-                               clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
-
-    // 如果想跟踪统计应用的打开情况，可以添加下面一行代码
-    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
     
-    let testObject = AVObject(className: "TestObject")
-    testObject?.setObject("bar", forKey: "foo")
-    testObject?.save()
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz", clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
+        //
+        //    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
+        //
+        //    let testObject = AVObject(className: "TestObject")
+        //    //testObject?.setObject("bar", forKey: "foo")
+        //    testObject?["foo"] = "bar"
+        //    testObject?.save()
+        LCApplication.default.set(
+            id:  "d5ML1LvUmHL5i5CT70MwWAfn-9Nh9j0Va", /* Your app ID */
+            key: "qeeskxXCy1lrBbl1vrkGgTrp" /* Your app key */
+        )
+        // Override point for customization after application launch.
+//    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz",
+//                               clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
+//
+//    // 如果想跟踪统计应用的打开情况，可以添加下面一行代码
+//    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
+//    
+//    let testObject = AVObject(className: "TestObject")
+//    testObject?.setObject("bar", forKey: "foo")
+//    testObject?.save()
 
     
     return true

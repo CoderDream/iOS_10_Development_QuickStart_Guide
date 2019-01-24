@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import AVOSCloud
+//import AVOSCloud
+import LeanCloud
 
 class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
@@ -43,8 +44,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     scrollViewHeight = self.view.frame.height
     
     // 检测键盘出现或消失的状态
-    NotificationCenter.default().addObserver(self, selector: #selector(showKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default().addObserver(self, selector: #selector(hideKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     
     let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardTap))
     hideTap.numberOfTapsRequired = 1
@@ -67,6 +68,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
   }
   
   // 调出照片获取器选择照片
+    @objc
   func loadImg(recognizer: UITapGestureRecognizer) {
     let picker = UIImagePickerController()
     picker.delegate = self
@@ -76,8 +78,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
   }
   
   // 关联选择好的照片图像到image view
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    avaImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    avaImg.image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
     self.dismiss(animated: true, completion: nil)
   }
   
@@ -87,15 +89,17 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
   }
   
   // 隐藏视图中的虚拟键盘
+    @objc
   func hideKeyboardTap(recognizer: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
   
+    @objc
   func showKeyboard(notification: Notification) {
     
     // 定义keyboard大小
-    let rect = ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey]!)!) as! NSValue
-    keyboard = rect.cgRectValue()
+    let rect = ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]!)!) as! NSValue
+    keyboard = rect.cgRectValue
     
     // 当虚拟键盘出现以后，将滚动视图的实际高度缩小为屏幕高度减去键盘的高度。
     UIView.animate(withDuration: 0.4) {
@@ -103,6 +107,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
   }
 
+    @objc
   func hideKeyboard(notification: Notification) {
     // 当虚拟键盘消失后，将滚动视图的实际高度改变为屏幕的高度值。
     UIView.animate(withDuration: 0.4) {
@@ -132,29 +137,54 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
       self.present(alert, animated: true, completion: nil)
     }
     
-    let user = AVUser()
-    user.username = usernameTxt.text?.lowercased()
-    user.email = emailTxt.text?.lowercased()
-    user.password = passwordTxt.text
-    user["fullname"] = fullnameTxt.text?.lowercased()
-    user["bio"] = bioTxt.text
-    user["web"] = webTxt.text?.lowercased()
-    user["gender"] = ""
+    let user = LCUser() //AVUser()
+    user.username = LCString(usernameTxt.text!.lowercased())
+    user.email = LCString(emailTxt.text!.lowercased())
+    user.password = LCString(passwordTxt.text!)
+    user["fullname"] = LCString(fullnameTxt.text!.lowercased())
+    user["bio"] = LCString(bioTxt.text!)
+    user["web"] = LCString(webTxt.text!.lowercased())
+    user["gender"] = LCString("")
     
     // 转换头像数据并发送到服务器
-    let avaData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
-    let avaFile = AVFile(name: "ava.jpg", data: avaData)
-    user["ava"] = avaFile
+//    let avaData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+//    let avaFile = AVFile(name: "ava.jpg", data: avaData)
+//    user["ava"] = avaFile
     
-    // 保存信息到服务器
-    user.signUpInBackground { (success:Bool, error:NSError?) in
-      if success {
-        print("用户注册成功！")
-      }else {
-        print(error?.localizedDescription)
-      }
+    let avatarImageData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+    let avatarFile = LCFile(payload: .data(data: avatarImageData))
+    avatarFile.name = "ava.jpg"
+    
+//    // 保存信息到服务器
+//    user.signUpInBackground { (success:Bool, error:NSError?) in
+//      if success {
+//        print("用户注册成功！")
+//      }else {
+//        print(error?.localizedDescription)
+//      }
+//    }
+    _ = avatarFile.save { result in
+        switch result {
+        case .success:
+            user.avatarFile = avatarFile
+            print("result: \(user)")
+            let result = user.signUp()
+
+            if result.isSuccess {
+                print("用户注册成功")
+            } else {
+                print("")
+            }
+            print("result: \(result)")
+
+        case .failure(let error):
+            print(error.localizedDescription)
+            //XCTFail(error.localizedDescription)
+        }
+
+        //expectation.fulfill()
     }
-  }
+}
   
   // 取消按钮被点击
   @IBAction func cancelBtn_click(_ sender: AnyObject) {
