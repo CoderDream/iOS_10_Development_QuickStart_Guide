@@ -53,8 +53,8 @@ import LeanCloud
 
 ```swift
 LCApplication.default.set(
-    id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
-    key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
+    id:  "d5ML1LvUmHL5i5CT70MwWAfn-9Nh9j0Va", /* Your app ID */
+    key: "qeeskxXCy1lrBbl1vrkGgTrp" /* Your app key */
 )
 ```
 
