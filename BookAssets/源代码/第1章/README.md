@@ -59,16 +59,21 @@ LCApplication.default.set(
 
 - 继续添加如下测试代码：
 ```swift
-let post = LCObject(className: "Post")
-post.set("words", value: "Hello World!")
-
-_ = post.save { result in
-    switch result {
-    case .success:
-        break
-    case .failure(let error):
-        break
+do {
+    let post = LCObject(className: "Post")
+    try post.set("words", value: "Hello World!")
+    
+    _ = post.save { result in
+        switch result {
+        case .success:
+            break
+        case .failure(let error):
+            print("error: \(error)")
+            break
+        }
     }
+} catch {
+    print("ERROR")
 }
 ```
 - 运行结果：  
