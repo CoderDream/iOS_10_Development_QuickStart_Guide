@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LeanCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,14 +17,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz", clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
+//    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz", clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
+//
+//    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
+//
+//    let testObject = AVObject(className: "TestObject")
+//    //testObject?.setObject("bar", forKey: "foo")
+//    testObject?["foo"] = "bar"
+//    testObject?.save()
+    LCApplication.default.set(
+        id:  "d5ML1LvUmHL5i5CT70MwWAfn-9Nh9j0Va", /* Your app ID */
+        key: "qeeskxXCy1lrBbl1vrkGgTrp" /* Your app key */
+    )
     
-    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
-    
-    let testObject = AVObject(className: "TestObject")
-    //testObject?.setObject("bar", forKey: "foo")
-    testObject?["foo"] = "bar"
-    testObject?.save()
+    do {
+        let post = LCObject(className: "Post")
+        try post.set("words", value: "Hello World!")
+        
+        _ = post.save { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print("error: \(error)")
+                break
+            }
+        }
+    } catch {
+        print("ERROR")
+    }
 
     return true
   }
