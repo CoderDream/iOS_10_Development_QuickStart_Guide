@@ -30,8 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         // 如果想跟踪统计应用的打开情况，可以添加下面一行代码
-        //AVAnalytics.trackAppOpened(launchOptions: launchOptions)
-        
+        //AVAnalytics.trackAppOpened(launchOptions: launchOptions)        
         //    let testObject = AVObject(className: "TestObject")
         //    testObject?.setObject("bar", forKey: "foo")
         //    testObject?.save()
