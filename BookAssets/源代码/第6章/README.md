@@ -46,5 +46,5 @@ _ = avatarFile.save { result in
 - 控制台输出
 ![](images/01_Console.png)
 
-- 运行结果：  
+- 运行结果（图片上传成功，可以悬停预览，点击查看全图）：  
 ![](images/02_Result.png)
