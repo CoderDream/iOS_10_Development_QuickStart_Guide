@@ -1,87 +1,50 @@
 
 # 第6章 提交用户注册信息到LeanCloud
 
-## 获取 SDK  
 
-获取 SDK 有多种方式，较为推荐的方式是通过包依赖管理工具下载最新版本。
+- 核心代码
+```swift
+let user = LCUser() //AVUser()
+user.username = LCString(usernameTxt.text!.lowercased())
+user.email = LCString(emailTxt.text!.lowercased())
+user.password = LCString(passwordTxt.text!)
+user["fullname"] = LCString(fullnameTxt.text!.lowercased())
+user["bio"] = LCString(bioTxt.text!)
+user["web"] = LCString(webTxt.text!.lowercased())
+user["gender"] = LCString("")
 
-包依赖管理工具安装
-CocoaPods 是开发 macOS 和 iOS 应用程序的一个第三方库的依赖管理工具，通过它可以定义自己的依赖关系（称作 pods），并且随着时间的推移，它会让整个开发环境中对第三方库的版本管理变得非常方便。具体可以参考 CocoaPods 安装和使用教程。
+// 转换头像数据并发送到服务器
+let avatarImageData = UIImage.jpegData(avaImg.image!)(compressionQuality: 0.5)!
+let avatarFile = LCFile(payload: .data(data: avatarImageData))
+avatarFile.name = "ava.jpg"
 
+// 保存信息到服务器
+_ = avatarFile.save { result in
+    switch result {
+    case .success:
+        user.avatarFile = avatarFile
+        print("result: \(user)")
+        let result = user.signUp()
 
-在项目根目录下创建一个名为 Podfile 的文件（无扩展名），并添加以下内容：
+        if result.isSuccess {
+            print("用户注册成功")
+        } else {
+            print("")
+        }
+        print("result: \(result)")
 
+    case .failure(let error):
+        print(error.localizedDescription)
+        //XCTFail(error.localizedDescription)
+    }
+}
 ```
-platform :ios, '12.1'
-use_frameworks!
 
-target 'Instagram' do
-   pod 'LeanCloud'
-end
-```
-使用 pod --version 确认当前 CocoaPods 版本 >= 1.0.0，如果低于这一版本，请执行 $ sudo gem install cocoapods 升级 CocoaPods。最后安装 SDK：
-```
-pod install --repo-update
-```
-
-- 安装Pod
-```
-CoderDreamdeMac:Instagram coderdream$ pod install
-Analyzing dependencies
-Downloading dependencies
-Using Alamofire (4.8.0)
-Using LeanCloud (15.0.0)
-Generating Pods project
-Integrating client project
-Sending stats
-Pod installation complete! There is 1 dependency from the Podfile and 2 total pods installed.
-CoderDreamdeMac:Instagram coderdream$
-```
-
-在 Xcode 中关闭所有与该项目有关的窗口，以后就使用项目根目录下 <项目名称>.xcworkspace 来打开项目。
-
-### 注册页面  
-
+- 注册页面  
 ![](images/00_Screen.jpg)
-
 
 - 控制台输出
 ![](images/01_Console.png)
 
-- 打开 AppDelegate.swift 文件，添加下列导入语句到头部：
-```swift
-import LeanCloud
-```
-
-- 然后粘贴下列代码到 application:didFinishLaunchingWithOptions 函数内：
-```swift
-LCApplication.default.set(
-    id:  "d5ML1LvUmHL5i5CT70MwWAfn-9Nh9j0Va", /* Your app ID */
-    key: "qeeskxXCy1lrBbl1vrkGgTrp" /* Your app key */
-)
-```
-
-- 继续添加如下测试代码：
-```swift
-do {
-    let post = LCObject(className: "Post")
-    try post.set("words", value: "Hello World!")
-    
-    _ = post.save { result in
-        switch result {
-        case .success:
-            break
-        case .failure(let error):
-            print("error: \(error)")
-            break
-        }
-    }
-} catch {
-    print("ERROR")
-}
-```
 - 运行结果：  
 ![](images/02_Result.png)
-
-### 参考文档：
-1. [Swift SDK 安装指南](https://tab.leancloud.cn/docs/start.html)
