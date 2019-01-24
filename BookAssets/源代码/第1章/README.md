@@ -41,7 +41,7 @@ CoderDreamdeMac:Instagram coderdream$
 
 ### 初始化  
 
-首先进入 控制台 > 设置 > 应用 Key 来获取 App ID 以及 App Key。
+- 首先进入 控制台 > 设置 > 应用 Key 来获取 App ID 以及 App Key。  
 ![](images/01_Key.png)
 
 - 打开 AppDelegate.swift 文件，添加下列导入语句到头部：
@@ -71,7 +71,7 @@ _ = post.save { result in
     }
 }
 ```
-- 运行结果：
+- 运行结果：  
 ![](images/02_Result.png)
 
 ### 参考文档：
