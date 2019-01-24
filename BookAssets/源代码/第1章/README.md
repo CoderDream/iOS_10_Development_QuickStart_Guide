@@ -42,15 +42,14 @@ CoderDreamdeMac:Instagram coderdream$
 ### 初始化  
 
 首先进入 控制台 > 设置 > 应用 Key 来获取 App ID 以及 App Key。
+![](images\01_Key.png)
 
-打开 AppDelegate.swift 文件，添加下列导入语句到头部：
-
+- 打开 AppDelegate.swift 文件，添加下列导入语句到头部：
 ```swift
 import LeanCloud
 ```
 
-然后粘贴下列代码到 application:didFinishLaunchingWithOptions 函数内：
-
+- 然后粘贴下列代码到 application:didFinishLaunchingWithOptions 函数内：
 ```swift
 LCApplication.default.set(
     id:  "d5ML1LvUmHL5i5CT70MwWAfn-9Nh9j0Va", /* Your app ID */
@@ -58,8 +57,7 @@ LCApplication.default.set(
 )
 ```
 
-修改 AppDelegate.swfit 的application(_, didFinishLaunchingWithOptions) 方法，添加如下测试代码：
-
+- 继续添加如下测试代码：
 ```swift
 let post = LCObject(className: "Post")
 post.set("words", value: "Hello World!")
@@ -73,6 +71,8 @@ _ = post.save { result in
     }
 }
 ```
+- 运行结果：
+![](images\02_Result.png)
 
-参考文档：
+### 参考文档：
 1. [Swift SDK 安装指南](https://tab.leancloud.cn/docs/start.html)
