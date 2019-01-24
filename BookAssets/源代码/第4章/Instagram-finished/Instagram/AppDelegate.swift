@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AVOSCloud
+//import AVOSCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,15 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
-    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz",
-                               clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
-
-    // 如果想跟踪统计应用的打开情况，可以添加下面一行代码
-    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
-    
-    let testObject = AVObject(className: "TestObject")
-    testObject?.setObject("bar", forKey: "foo")
-    testObject?.save()
+//    AVOSCloud.setApplicationId("2NL5pkgYfnrMXkbf17w5rU62-gzGzoHsz",
+//                               clientKey: "6Sl5rQaIyXh90CE0i26b2gaJ")
+//
+//    // 如果想跟踪统计应用的打开情况，可以添加下面一行代码
+//    AVAnalytics.trackAppOpened(launchOptions: launchOptions)
+//    
+//    let testObject = AVObject(className: "TestObject")
+//    testObject?.setObject("bar", forKey: "foo")
+//    testObject?.save()
 
     
     return true
