@@ -44,8 +44,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         scrollViewHeight = self.view.frame.height
         
         // 检测键盘出现或消失的状态
-//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         let hideTap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardTap))
         hideTap.numberOfTapsRequired = 1
@@ -158,14 +158,14 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 user.avatarFile = avatarFile
                 print("result: \(user)")
                 let result = user.signUp()
-
+                
                 if result.isSuccess {
                     print("用户注册成功")
-
+                    
                     // 记住登陆的用户
                     UserDefaults.standard.set(user.username, forKey: "username")
                     UserDefaults.standard.synchronize()
-
+                    
                     // 从AppDelegate类中调用login方法
                     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
                     appDelegate.login()
@@ -173,7 +173,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     print("")
                 }
                 print("result: \(result)")
-
+                
             case .failure(let error):
                 print(error.localizedDescription)
                 //XCTFail(error.localizedDescription)
