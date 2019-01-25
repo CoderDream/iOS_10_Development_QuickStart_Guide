@@ -1,0 +1,10 @@
+use_frameworks!  # LeanCloud SDK 只能作为动态框架集成到项目中
+platform:ios, '12.1'
+
+target 'Instagram' do             # Instagram 是项目的名称
+#pod 'AVOSCloud'                   # LeanCloud 基础模块
+#pod 'AVOSCloudIM'                 # IM 模块
+#pod 'AVOSCloudCrashReporting'     # 崩溃报告模块
+pod 'LeanCloud'
+
+end
