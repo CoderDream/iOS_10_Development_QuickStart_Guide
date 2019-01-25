@@ -67,6 +67,7 @@ class HomeVC: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
         
+        print("### collectionView ###")
         if let currentUser = LCUser.current {
             header.fullnameLbl.text = currentUser.fullname as? String
             header.webTxt.text = currentUser.web as? String
@@ -75,10 +76,14 @@ class HomeVC: UICollectionViewController {
             header.bioLbl.sizeToFit()
             
             let avaQuery = currentUser.ava as? LCFile
+            
             // Value of optional type 'LCFile?' must be unwrapped to refer to member 'getDataInBackground' of wrapped base type 'LCFile'
-            avaQuery.getDataInBackground { (data:Data?, error:Error?) in
-                header.avaImg.image = UIImage(data: data!)
-            }
+            //avaQuery.getDataInBackground { (data:Data?, error:Error?) in
+            //Cast from 'LCFile?' to unrelated type 'Data' always fails
+           header.avaImg.image = UIImage(data: avaQuery.payload?.dataValue)
+            print("avaQuery: \(avaQuery)")
+            print("####")
+            //}
             
             // LCUser.current!.fullname //object(forKey: "fullname") as? String)?.uppercased()
 //            header.webTxt.text = LCUser.current!.object(forKey: "web") as? String
