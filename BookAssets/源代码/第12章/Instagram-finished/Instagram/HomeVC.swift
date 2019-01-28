@@ -43,10 +43,10 @@ class HomeVC: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,8 +64,32 @@ class HomeVC: UICollectionViewController {
      }
      */
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = self.collectionView?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
+                                 at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = self.collectionView?.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
+        
+        if let currentUser = LCUser.current {
+            let email = currentUser.email // 当前用户的邮箱
+            let username = currentUser.username // 当前用户名
+            
+            // 请注意，以下代码无法获取密码
+            let password = currentUser.password
+            
+            let web = currentUser.web as? String
+            let bio = currentUser.bio as? String
+            print("email: \(String(describing: email?.value))")
+            print("username: \(String(describing: username?.value))")
+            print("password: \(String(describing: password?.value))")
+            
+            print("web: \(String(describing: web))")
+            print("bio: \(String(describing: bio))")
+//            email: Optional("a@qq.com")
+//            username: Optional("a")
+//            password: nil
+//            web: nil
+//            bio: nil
+        }
         
         print("### collectionView ###")
         if let currentUser = LCUser.current {
@@ -74,14 +98,17 @@ class HomeVC: UICollectionViewController {
             header.webTxt.sizeToFit()
             header.bioLbl.text = currentUser.bio as? String
             header.bioLbl.sizeToFit()
-            
+            print("currentUser: \(currentUser)")
             let avaQuery = currentUser.ava as? LCFile
             
             // Value of optional type 'LCFile?' must be unwrapped to refer to member 'getDataInBackground' of wrapped base type 'LCFile'
             //avaQuery.getDataInBackground { (data:Data?, error:Error?) in
+            //    header.avaImg.image = UIImage(data: data!)
+           // }
             //Cast from 'LCFile?' to unrelated type 'Data' always fails
-           header.avaImg.image = UIImage(data: avaQuery.payload?.dataValue)
             print("avaQuery: \(avaQuery)")
+            //header.avaImg.image = UIImage(data: avaQuery.payload?.dataValue as! Data)
+            //print("avaQuery: \(avaQuery)")
             print("####")
             //}
             
