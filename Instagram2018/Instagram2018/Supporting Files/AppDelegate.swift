@@ -34,6 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             id:  "ERva8YPYgr5sPN6UJdWq5HuH-9Nh9j0Va", /* Your app ID */
             key: "3wnkDhfhLxv8QQQaXT4N9lWT" /* Your app key */
         )
+       
+        
+        // login()
+       // method1001_deleteObject()
+       // saveImageFile()
+        saveImagePngFile()
+        return true
+    }
+    
+    private func savePost() {
         let post = LCObject(className: "Post")
         
         do {
@@ -50,12 +60,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         } catch {
         }
-        
-        // login()
-        
-        return true
     }
-
+    
+    private func  saveImageFile() {
+        if let url = Bundle.main.url(forResource: "1", withExtension: "jpg") {
+            let file = LCFile(payload: .fileURL(fileURL: url))
+            
+            //上传进度监听
+            //一般来说，上传文件都会有一个上传进度条显示用以提高用户体验：
+            _ = file.save(
+                progress: { progress in
+                    print(progress)
+            },
+                completion: { result in
+                    switch result {
+                    case .success:
+                        // handle success
+                        print("LCFile upload success")
+                        break
+                    case .failure(error: let error):
+                        // handle error
+                        print(error)
+                        break
+                    }
+            })
+        }
+    }
+    
+    private func saveImagePngFile() {
+        if let url = Bundle.main.url(forResource: "PlayerWalk_0_00", withExtension: "png") {
+            let file = LCFile(payload: .fileURL(fileURL: url))
+            
+            //上传进度监听
+            //一般来说，上传文件都会有一个上传进度条显示用以提高用户体验：
+            _ = file.save(
+                progress: { progress in
+                    print(progress)
+            },
+                completion: { result in
+                    switch result {
+                    case .success:
+                        // handle success
+                        print("LCFile upload success")
+                        break
+                    case .failure(error: let error):
+                        // handle error
+                        print(error)
+                        break
+                    }
+            })
+        }
+    }
+    
+    private func  method1001_deleteObject() {
+        let todo = LCObject(className: "Post", objectId: "5c4aa7a20c58ec001a7a60b6")
+        
+        // 调用实例方法删除对象
+        _ = todo.delete { result in
+            switch result {
+            case .success:
+                print("Todo Object delete success")
+            break // 删除成功
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
