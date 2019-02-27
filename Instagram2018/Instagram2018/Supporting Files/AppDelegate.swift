@@ -38,8 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // login()
        // method1001_deleteObject()
-       // saveImageFile()
-        saveImagePngFile()
+       saveImageFile()
+        //saveImagePngFile()
+        //saveImageNetworkPngFile()
         return true
     }
     
@@ -90,6 +91,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func saveImagePngFile() {
         if let url = Bundle.main.url(forResource: "PlayerWalk_0_00", withExtension: "png") {
             let file = LCFile(payload: .fileURL(fileURL: url))
+            
+            //上传进度监听
+            //一般来说，上传文件都会有一个上传进度条显示用以提高用户体验：
+            _ = file.save(
+                progress: { progress in
+                    print(progress)
+            },
+                completion: { result in
+                    switch result {
+                    case .success:
+                        // handle success
+                        print("LCFile upload success")
+                        break
+                    case .failure(error: let error):
+                        // handle error
+                        print(error)
+                        break
+                    }
+            })
+        }
+    }
+    // https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/Instagram2018/Instagram2018/PlayerWalk_0_00.png?raw=true
+    private func saveImageNetworkPngFile() {
+        if let url = URL(string: "https://github.com/CoderDream/iOS_10_Development_QuickStart_Guide/blob/master/Instagram2018/Instagram2018/PlayerWalk_0_00.png") {
+            let file = LCFile(url: url)
             
             //上传进度监听
             //一般来说，上传文件都会有一个上传进度条显示用以提高用户体验：
